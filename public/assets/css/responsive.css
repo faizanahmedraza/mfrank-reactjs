@@ -1,0 +1,21 @@
+/******Responsive  CSS***********/
+
+/*
+    pagination responsive style
+*/
+@media screen and (max-width: 768px) {
+    .pagination-dropdown .dropdown {
+        justify-content: center;
+        display: flex;
+        margin-bottom: 10px;
+    }
+}
+
+/*
+    migration checkbox responsive style
+*/
+@media screen and (max-width: 768px) {
+    .checkbox-responsive .col {
+        flex: auto;
+    }
+}

@@ -1,0 +1,235 @@
+.plugins-page .table {
+    margin-bottom: 0px;
+    border-bottom: none;
+}
+.plugins-page .table td:focus {
+    outline: none;
+}
+.plugins-page .table thead th div {
+}
+
+.plugins-page table td,
+.plugins-page table th {
+    text-overflow: unset;
+    border-bottom-width: 0px !important;
+}
+.plugins-page .selected-row {
+    background-color: #1665d8;
+    color: #fff;
+    display: inline-block;
+    /* margin-right: 10px; */
+    padding: 4px 10px;
+    font-size: 14px;
+}
+.plugins-page .selected-row .close {
+    right: -6px;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0.8;
+    top: 0px;
+    position: relative;
+}
+.plugins-page .selected-row .close:focus {
+    outline: none;
+}
+.plugins-detail-page .card-header {
+    padding: 8px 15px;
+}
+.plugins-card-header {
+    border-bottom: none;
+    border-radius: 0;
+    font-weight: 500;
+}
+.plugins-card-header .card-header {
+    border-bottom: none;
+}
+.plugins-detail-page.accordion > .card:last-of-type {
+    border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+}
+.action-button .tooltip-wrapper {
+    display: inline-block;
+}
+.action-eye {
+    text-align: center;
+    display: block;
+}
+.isDisabled {
+    pointer-events: none;
+    color: rgba(16, 16, 16, 0.3) !important;
+}
+
+.plugins-detail-page table td,
+.plugins-detail-page table th {
+    text-overflow: unset;
+    border-bottom-width: 0px !important;
+    white-space: normal;
+}
+
+.plugins-table {
+}
+/* .plugins-detail-page .react-bs-table-container{
+    position: relative;
+}
+.plugins-detail-page .react-bs-table-expand-cell {
+        position: absolute;
+    right: 0;
+} */
+.plugins-detail-page .react-bs-table-expand-cell .glyphicon {
+    color: #1665d8;
+    font-size: 15px;
+}
+.plugins-detail-page .expend-table td {
+    border-bottom-width: 1px !important;
+}
+.action-button .btn-outline-primary:disabled {
+    color: #0168fa !important;
+    pointer-events: none;
+}
+.plugins-detail-page .badge {
+    margin-bottom: 4px;
+    margin-top: 0;
+}
+.version-tooltip {
+    cursor: default;
+    text-align: center;
+    display: block;
+}
+.version-tooltip svg {
+    font-size: 12px;
+    margin: 0 6px;
+}
+.version-tooltip .update-color {
+    color: #1665d8;
+}
+
+.wp-search {
+    z-index: 9;
+}
+.plugins-detail-page .selected-row {
+    background-color: #1665d8;
+    color: #fff;
+    display: inline-block;
+    /* margin-right: 10px; */
+    padding: 4px 10px;
+    font-size: 14px;
+}
+.plugins-detail-page .selected-search {
+    background-color: #1665d8;
+    color: #fff;
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 14px;
+}
+.lock-button {
+    text-align: center;
+}
+.plugins-detail-page .selected-row .close {
+    right: -6px;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0.8;
+    top: 0px;
+    position: relative;
+}
+.plugins-detail-page .selected-row .close:focus {
+    outline: none;
+}
+/*
+    plugin Install CSS
+*/
+.wp-install-btn {
+    text-align: right;
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+}
+.plugin-box {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+}
+.img-rounded {
+    max-width: 100%;
+    border-radius: 6px;
+}
+.plugin-box .title {
+    font-size: 18px;
+}
+.plugin-box .description {
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+.plugin-box .author {
+    font-size: 12px;
+}
+.plugin-box .downloads {
+    font-size: 12px;
+}
+.plugin-search-form {
+}
+.plugin-search-form .input-group {
+    justify-content: center;
+}
+.plugin-search-form .form-inline .form-control {
+    min-width: 100%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.plugin-search-form .form-inline {
+    min-width: 96%;
+}
+.plugin-search-form .form-inline .form-control:focus {
+    box-shadow: none;
+    border: 1px solid #c0ccda;
+}
+.plugin-no-data {
+    margin: 0;
+    text-align: center;
+    color: #a7a0ab;
+    padding: 5px;
+    font-size: 22px;
+    width: 100%;
+}
+.download-box {
+    align-items: center;
+}
+.lock-button .btn {
+    padding: 0;
+    margin-left: 20px;
+}
+.lock-button .btn:first-child {
+    margin-left: 0px;
+}
+.plugins-detail-page .lock-button .btn:disabled {
+    cursor: no-drop;
+}
+.install-sync {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.plugin-box .ratings {
+    display: flex;
+    align-items: center;
+}
+.plugin-box .ratings strong {
+    margin-right: 4px;
+}
+.plugin-box .ratings span {
+}
+.domain-error {
+    color: #dc3545;
+    position: relative;
+    text-align: right;
+    left: -7px;
+}
+.install-error .css-yk16xz-control {
+    background-color: #fce4e4 !important;
+    border: 1px solid #dc3545 !important;
+    outline: none;
+    color: #dc3545;
+}

@@ -1,0 +1,62 @@
+.site-update-page {
+}
+.site-update-page .update-header {
+    background-color: #1665d8;
+    padding: 10px;
+}
+.site-update-page .update-header button {
+    color: #fff;
+    outline: none;
+}
+/* .update-domain svg path {
+	fill: #fff;
+} */
+.site-update-page .btn-update {
+    background-color: #1665d8;
+    color: #fff;
+}
+.site-update-page .table td {
+    padding: 4px 8px;
+}
+.update-image img {
+    display: inline-block;
+    margin-right: 5px;
+    border: 2px solid #fff;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 25px;
+}
+.update-image {
+    float: right;
+    margin: 0 6px;
+    margin-top: 6px;
+}
+.update-image p {
+    float: right;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+.btn-icon {
+    float: right;
+}
+.btn-icon svg path {
+    fill: #1665d8;
+}
+.site-update-page .card-header {
+    padding: 8px 15px;
+}
+.site-card-header {
+    border-bottom: none;
+    border-radius: 0;
+    font-weight: 500;
+}
+.site-core-accordion.accordion > .card:last-of-type {
+    border-bottom: 1px solid rgba(72, 94, 144, 0.16);
+}
+.site-core-accordion.accordion > .card:first-of-type {
+    border-top: none;
+}
+.site-update-table button:disabled {
+    color: #fff !important;
+}

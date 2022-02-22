@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>network-signal</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Dashboard" transform="translate(-695.000000, -595.000000)" stroke="#1665D8" stroke-width="1.5">
+            <g id="Group-21" transform="translate(165.000000, 498.000000)">
+                <g id="Group-25" transform="translate(1.000000, 48.000000)">
+                    <g id="Group-19" transform="translate(380.000000, 0.000000)">
+                        <g id="Group-18" transform="translate(149.000000, 49.000000)">
+                            <g id="network-signal" transform="translate(0.000000, 1.000000)">
+                                <circle id="Oval" cx="7.516" cy="7.487" r="6.75"></circle>
+                                <line x1="1.15" y1="9.737" x2="13.881" y2="9.737" id="Path"></line>
+                                <line x1="1.15" y1="5.237" x2="13.881" y2="5.237" id="Path"></line>
+                                <path d="M6.059,0.894 C4.84904317,5.26558533 5.02725809,9.90511373 6.569,14.171" id="Path"></path>
+                                <path d="M8.972,0.894 C9.50030475,2.79667026 9.76741867,4.7623461 9.766,6.737 C9.76970442,9.27186717 9.32973356,11.7878236 8.466,14.171" id="Path"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

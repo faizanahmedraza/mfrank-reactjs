@@ -1,0 +1,33 @@
+.no-data {
+    margin: 0;
+    text-align: center;
+    color: #a7a0ab;
+    padding: 5px;
+}
+.user-list-page .action {
+    width: 215px;
+}
+.user-list-page .custom-control {
+    border-bottom: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-left: none;
+    border-right: none;
+}
+.update-user-form {
+    margin-top: 50px;
+}
+.update-user-form .error {
+    color: rgb(206, 17, 38);
+    margin-top: -12px;
+    text-align: right;
+    font-size: 14px;
+}
+.update-user-form label {
+    display: none;
+}
+.space-btn {
+	font-size: 16px !important;
+    width: 15px !important;
+}

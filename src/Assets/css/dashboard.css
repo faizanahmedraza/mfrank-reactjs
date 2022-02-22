@@ -1,0 +1,85 @@
+/* Dashboard CSS */
+.multi-upload-file input[type="file"] {
+    padding: 10px 0;
+}
+.dashboard-cards {
+    color: #ffffff;
+    background-color: #1665d8;
+    /* border-color: #1665d8; */
+    margin-bottom: 25px;
+    /* background-image: url(../img/image.png);
+    background-repeat: no-repeat;
+    background-position: top right; */
+    border: 1px solid #1665d8;
+}
+.dashboard-cards .card-heading {
+    font-weight: 600;
+}
+.dashboard-cards .card-number {
+    font-weight: 600;
+    font-size: 25px;
+}
+.dashboard-cards svg {
+    opacity: 0.8;
+}
+
+.log-approve path {
+    fill: darkgreen;
+}
+.log-cancel path {
+    fill: rgb(233, 43, 43);
+}
+
+/*
+    Report chart Css
+*/
+.mrr-chart .apexcharts-toolbar {
+    display: none;
+}
+/*Dashboard migration Count CSS */
+.dashboard-view .badge {
+    margin: 0;
+    padding: 4px 6px !important;
+    background-color: #1665d8;
+    color: #fff;
+}
+.sites-chart .apexcharts-toolbar {
+    display: none;
+}
+.sites-chart svg {
+    overflow: visible;
+}
+/*
+    Dashboard upcoming Features CSS
+*/
+.dashboard-cards.upcoming {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 101px;
+}
+/*Removing margin bottom in voucher form */
+#voucher-form .form-group {
+    margin-bottom: 0px !important;
+}
+
+/*
+    theme/plugin /core chart css
+*/
+.wp-chart svg {
+    overflow: visible;
+}
+/*
+    chart Badge overflow css
+*/
+.graph-box {
+    overflow: hidden;
+}
+/*
+    Dashboard link card css
+*/
+.cards-link .dashboard-cards:hover {
+    background-color: #ffffff;
+    border: 1px solid #1665d8 !important;
+    color: inherit;
+}

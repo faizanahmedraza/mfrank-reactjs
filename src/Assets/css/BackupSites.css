@@ -1,0 +1,9 @@
+.test-backup-list .custom-control {
+    border-bottom: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-left: none;
+    border-right: none;
+    padding-top: 1.5em;
+}

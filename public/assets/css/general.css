@@ -1,0 +1,884 @@
+/******General CSS***********/
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", sans-serif !important;
+}
+.content-components {
+  font-size: 16px;
+  padding: 20px;
+  position: relative;
+  color: #1b2e4b;
+  letter-spacing: -0.2px;
+}
+@media (min-width: 992px) {
+  .content-components {
+    padding: 25px;
+    margin-top: 60px;
+    margin-left: 240px;
+  }
+}
+@media (min-width: 1200px) {
+  .content-components {
+    padding: 30px;
+    /* margin-right: 240px; */
+  }
+}
+.content-components > .container {
+  padding: 0;
+  /* max-width: 780px; */
+  max-width: 100%;
+}
+/* .content-components .container .container {
+	padding: 0;
+	max-width: 780px !important;
+} */
+.content-components pre[class*="language-"],
+.content-components code[class*="language-"] {
+  border-color: rgba(72, 94, 144, 0.16);
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  letter-spacing: normal;
+  background-color: #f8f9fc;
+}
+
+.logo {
+  max-width: 200px;
+}
+.user-list-page .table th,
+.user-list-page .table td {
+  vertical-align: middle;
+}
+.badge {
+  font-size: 13px !important;
+  font-weight: normal !important;
+  padding: 8px !important;
+  margin-top: 8px;
+}
+.table th,
+.table td {
+  vertical-align: middle !important;
+}
+.customer-list-page .badge {
+  font-size: 12px !important;
+  padding: 4px 7px !important;
+  margin-left: 7px;
+}
+.customer-list-page .table th,
+.customer-list-page .table td {
+  vertical-align: middle;
+}
+.roleslist-page .permissions {
+  width: 60%;
+}
+.roleslist-page .actions {
+  text-align: center;
+}
+.page-header {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+}
+body {
+  font-family: "IBM Plex Sans", sans-serif !important;
+}
+.site-update-table th,
+.site-update-table td {
+  width: 200px;
+}
+.react-bootstrap-table {
+  height: 200px;
+  overflow: auto;
+}
+.lock-img {
+  display: inline-block;
+  margin-right: 20px;
+}
+.unlock-img {
+  display: inline-block;
+  margin-right: 12px;
+}
+.unlock-img path {
+  fill: #063cdd !important;
+}
+.lock-img path {
+  fill: #063cdd;
+  text-align: center;
+}
+.page-header {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+}
+body {
+  font-family: "IBM Plex Sans", sans-serif !important;
+}
+.site-update-table th,
+.site-update-table td {
+  width: 200px;
+}
+.react-bootstrap-table {
+  height: 200px;
+  overflow: auto;
+}
+.site-update-table th,
+.site-update-table td {
+  width: 200px;
+}
+.react-bootstrap-table {
+  height: 200px;
+  overflow: auto;
+}
+
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+.loading:before {
+  content: "";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 2;
+  cursor: pointer;
+  font-family: Gilroy-Light;
+  background-image: url("../img/thunder-bg.png");
+  background-position: center;
+  background-size: auto 70%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.site-wordpress:hover {
+  filter: unset;
+  cursor: pointer;
+}
+.site-wordpress {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.site-button .btn {
+  /* width: 25%; */
+  margin-left: 5px;
+}
+
+.migration-status {
+  min-width: 200px;
+}
+
+.migration-status label {
+  display: none;
+}
+.hostnode-toggle {
+  padding-right: 20px !important;
+  display: flex;
+  border: white !important;
+  padding-top: 18px !important;
+}
+.hostnode-toggle .custom-switch {
+  /* display: inline-block; */
+  float: right;
+}
+.hostnode-toggle .custom-switch .custom-control-label {
+  height: 24px !important;
+}
+.customer-list-page .customer-action {
+  /* width: 175px;
+    text-align: center; */
+  /* display: table-cell; */
+}
+.customer-list-page .custom-control {
+  border-bottom: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  display: flex !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding-top: 2em;
+}
+
+/*Site Operations*/
+.operation-component {
+  text-align: center;
+  padding: 15px 25px;
+  box-shadow: 0px 0px 10px #e9e8e8;
+}
+
+.operation-component svg {
+  font-size: 32px;
+  margin: 0px !important;
+}
+.operation-component path {
+  fill: #1665d8;
+}
+
+.operation-component h6 {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.page-404 {
+  height: 100vh;
+}
+.custom-switch .custom-control-label {
+  cursor: pointer;
+}
+.custom-switch .custom-control-label::before {
+  margin-left: -2px;
+}
+.swal2-styled:focus {
+  box-shadow: none !important;
+}
+.custom-switch .custom-control-label {
+  cursor: pointer;
+  height: 46px !important;
+}
+.custom-switch .custom-control-label::before {
+  margin-left: -2px;
+}
+.affiliate-label-hide label {
+  display: none;
+}
+.dashboard-view {
+  padding-right: 0px !important;
+}
+
+.migration-page .domain-list {
+  display: block;
+}
+.migration-page .domain-list .badge {
+  padding: 6px !important;
+  font-size: 12px !important;
+}
+/* This is helper css for no-data  */
+
+.no-data {
+  margin: 0;
+  text-align: center;
+  color: #a7a0ab;
+  padding: 5px;
+  font-size: 22px;
+}
+.site-update-no-data {
+  display: grid;
+}
+.operation-component .refresh-icon-redis svg {
+  height: 25px;
+  width: 37px;
+  cursor: pointer;
+  top: 12px;
+  position: absolute;
+  right: 25px;
+}
+/*
+    Migration Trash Status Text uppercase
+*/
+.migration-trash-status {
+  text-transform: capitalize;
+}
+
+/* Responsive Css  */
+@media screen and (max-width: 768px) {
+  .site-button {
+    flex: none !important;
+  }
+  .site-button .btn {
+    width: auto;
+  }
+  .operation-component {
+    margin-bottom: 15px;
+  }
+  .customer-list-page .customer-action {
+    display: inline-block;
+    border-bottom: none;
+    border-left: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .pagination-dropdown .dropdown {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 10px;
+  }
+}
+
+/*
+    Invoice Delete Css
+*/
+.invoice-page .action {
+  width: max-content;
+  text-align: center;
+  display: inline-block;
+  border-top: 1px solid rgba(72, 94, 144, 0.16);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+/*
+    affiliate-promo-code CSS
+*/
+.affiliate-promo-code {
+  margin-left: 4px;
+  padding: 6px 8px !important;
+}
+
+/*
+    btn Action buttons css
+*/
+.btn-action {
+  font-size: 0.875rem;
+  padding: 10px 18px;
+  color: #1665d8 !important;
+  border: none;
+  background: transparent;
+}
+.btn-action:focus {
+  outline: none;
+}
+/*   Migration Count box CSS
+*/
+.migration-count .btn {
+  min-width: 18%;
+  margin-right: 6px;
+  margin-top: 1%;
+  margin-left: 14px;
+}
+.migration-count .badge {
+  margin: 0px 0px 0px 3px;
+  background-color: #fff;
+  color: #1665d8;
+  font-weight: bold !important;
+  padding: 3px 5px !important;
+  top: 0 !important;
+  /* width: 18px;
+    height: 18px; */
+  float: right;
+}
+@media screen and (max-width: 414px) {
+  .migration-count .btn {
+    min-width: 100% !important;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+/*
+    Migration Status text css
+*/
+.status-text {
+  text-transform: capitalize;
+}
+/*
+   Button Disabled class css
+*/
+button:disabled {
+  color: rgba(16, 16, 16, 0.3) !important;
+  cursor: pointer;
+}
+.isDisabled {
+  pointer-events: none;
+  color: rgba(16, 16, 16, 0.3) !important;
+}
+.btn-primary:disabled {
+  color: #fff !important;
+}
+
+.wallet span {
+  word-break: break-all;
+}
+
+.event-block {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+/*Yup Validation Error Field */
+.error-input .form-control {
+  background-color: #fce4e4 !important;
+  border: 1px solid #dc3545 !important;
+  outline: none;
+  color: #dc3545;
+}
+.error-async > div {
+  /* background-color: #fce4e4 !important; */
+  border: 1px solid #dc3545 !important;
+  /* outline: none;
+    color: #dc3545; */
+}
+.error-input .form-control:focus {
+  box-shadow: none;
+  color: #dc3545;
+}
+.error-input .validation-message {
+  text-align: right;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+
+.error-input ::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #dc3545 !important;
+}
+.error-input :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #dc3545 !important;
+  opacity: 1;
+}
+.error-input ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #dc3545 !important;
+  opacity: 1;
+}
+.error-input :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #dc3545 !important;
+}
+.error-input ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #dc3545 !important;
+}
+.error-input::placeholder {
+  /* Most modern browsers support this now. */
+  color: #dc3545 !important;
+}
+.error-select > div:first-child {
+  background-color: #fce4e4 !important;
+  border: 1px solid #dc3545 !important;
+  outline: none;
+  color: #dc3545;
+}
+/*
+    url-copy-button css
+/*
+.site-url-copy-button {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-left: 5px;
+}
+/* cursor will be pointer */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* click wouldn't work */
+.event-none {
+  pointer-events: none;
+}
+/* disabled colors*/
+.disabled {
+  color: darkgrey;
+  fill: darkgrey;
+}
+
+/***********checkbox switch***************/
+
+.react-switch-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+.react-switch-label {
+  display: inline-block;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 60px;
+  height: 16px;
+  background: #f4f2f2;
+  border: solid 1px #f4f2f2;
+  border-radius: 100px;
+  position: relative;
+  transition: background-color 0.2s;
+}
+.react-switch-label .react-switch-button {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0px;
+  width: 22px;
+  height: 22px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: #d8d8d8;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+  left: calc(100% - 0px);
+  transform: translateX(-100%);
+  background: #2373e0;
+  border: solid 1px #2373e0;
+}
+.react-switch-checkbox:checked + .react-switch-label {
+  background: #cfe4ff;
+  border: solid 1px #b3d5ff;
+}
+.react-switch-label:active .react-switch-button {
+  width: 60px;
+}
+
+.site-profile-page input[type="checkbox"] + label:before {
+  display: none;
+}
+.site-profile-page input[type="checkbox"] + label {
+  margin-top: 0px;
+  padding: 0 !important;
+  margin-bottom: 0px;
+}
+/************************************/
+/*
+    Migration List columns css
+*/
+.migration-list-page .table th,
+.migration-list-page .table td {
+  word-break: break-word;
+}
+
+@media screen and (min-width: 1600px) {
+  .migration-count .btn {
+    min-width: 19%;
+    margin-right: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .migration-list-page .table th,
+  .migration-list-page .table td {
+    word-break: normal;
+  }
+}
+/*
+ copyicon CSS
+*/
+.copyicon {
+  margin-left: 5px;
+  border: none;
+  background: none;
+  padding: 0;
+  position: relative;
+  top: -3px;
+  left: 10px;
+}
+.copyicon:focus {
+  outline: none;
+}
+.copy-icon {
+  width: 15px;
+  height: 15px;
+}
+.copytextarea {
+  border-style: none;
+  border-color: transparent;
+  overflow: hidden;
+  resize: none;
+  height: 20px;
+  color: #3e3f42;
+  font-size: 14px;
+  padding: 0;
+  background: transparent;
+}
+.copytextarea:focus-visible {
+  outline: none;
+}
+/* Add SSL Button  */
+
+.add-ssl-btn {
+  margin-top: -24px;
+}
+/*Tooltip icon CSS */
+.clone-info-icon {
+  width: 16px;
+}
+.responsive-clone-tooltip {
+  display: inline-flex;
+  margin-left: 12px;
+}
+.clone-info-icon {
+  color: #6c757d;
+  cursor: pointer;
+}
+#tooltip .tooltip-inner {
+  color: #fff !important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+#tooltip .arrow:before {
+  border-bottom-color: #6c757d;
+}
+
+.log-declined path {
+  fill: red !important;
+}
+
+.logs-action-col {
+  width: 50% !important;
+}
+
+.site-wordpress {
+  /* background-color: white !important; */
+  padding: 0px !important;
+  border: 0px !important;
+}
+
+.site-wordpress svg {
+  padding: 0px !important;
+  border: 0px !important;
+  height: 25px !important;
+  width: 25px !important;
+}
+
+.site-wordpress svg:hover {
+  fill: #0168fa !important;
+}
+/*
+    wp-log-page action css
+*/
+.wp-log-page .action {
+  width: 100px;
+  text-align: center;
+}
+.wp-log-page .version {
+  width: 150px;
+  padding: 0;
+  text-align: center;
+}
+.voucher-filter label {
+  display: none;
+}
+/*
+    test-backup-list Css
+*/
+.test-backup-list td {
+  word-break: break-all;
+}
+
+.hostnode-page .hostnode-link {
+  padding: 0px 5px 0px 5px !important;
+}
+
+.hostnode-page .hostnode-linktext {
+  pointer-events: none !important;
+  padding: 0px 5px 0px 5px !important;
+}
+/*
+    Invoice Wallet css
+*/
+.wallet-label {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Media Query for all table action td  */
+
+@media only screen and (min-width: 2500px) and (max-width: 12000px) {
+  .customer-list-page .custom-control {
+    width: auto !important;
+  }
+}
+
+@media only screen and (min-width: 2000px) and (max-width: 12000px) {
+  .invoice-list-page .custom-control {
+    width: auto !important;
+  }
+}
+
+.invoice-list-page .custom-control {
+  border-bottom: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  display: flex !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding-top: 2em;
+}
+.invoice-list-page .invoice-action {
+  width: 175px;
+}
+/*
+    Table Merge left css Fix
+*/
+.table-width {
+  /* word-break: break-word; */
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+.customer-list-page .customer-action {
+  text-align: center;
+  min-width: 175px;
+}
+.customer-list-page .customer-status {
+  min-width: 150px;
+}
+.customer-list-page .customer-status label {
+  display: none;
+}
+
+/* HostNode Table Width  */
+
+.host-node-table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.random-password-btn .btn {
+  margin-top: 32px;
+  margin-left: -21px;
+  width: 166px;
+}
+
+#profile-upload {
+  background-image: url();
+  background-size: cover;
+  background-position: center;
+  height: 70px;
+  width: 70px;
+  border: 2px solid #bbb;
+  position: relative;
+  border-radius: 250px;
+  overflow: hidden;
+}
+#profile-upload:hover input.upload {
+  display: block;
+  cursor: pointer;
+}
+#profile-upload:hover .hvr-profile-img {
+  display: inline-block;
+}
+#profile-upload .fa {
+  margin: auto;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  text-align: center;
+  right: 0;
+  padding: 2px;
+  opacity: 1;
+  transition: opacity 1s linear;
+  -webkit-transform: scale(0.75);
+}
+#profile-upload:hover .fa {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  width: 100%;
+  /* height: 0%; */
+  background-color: #ccc;
+  transition: all 0.1s ease-in;
+}
+#profile-upload input.upload {
+  z-index: 1;
+  left: 0;
+  margin: 0;
+  bottom: 0;
+  top: 0;
+  padding: 0;
+  opacity: 0;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  background: #ccc;
+  width: 100%;
+  display: none;
+}
+
+#profile-upload .hvr-profile-img {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  vertical-align: middle;
+  position: relative;
+  background: transparent;
+}
+#profile-upload .fa:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0px;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+  transition: height 0.3s;
+}
+
+#profile-upload:hover .fa:after {
+  height: 160%;
+}
+.relative {
+  position: relative;
+}
+.admin-name {
+  position: absolute;
+  left: 1348px;
+  top: 16px;
+}
+
+/* The dropdown container */
+.dropdown2 {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown2 .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: #1665d8;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content2 {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  top: 58px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content2 label {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content2 label:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown2:hover .dropdown-content2 {
+  display: block;
+}
+
+.margin-space-top {
+  margin-top: 30px;
+}
+
+.main-cards{
+  /* border: 2px solid black; */
+} */
+.cards-wrk{
+  border: 5px solid rgb(236, 236, 236);
+  padding: 25px;
+}
+.NC-img{
+  width: 145px;
+  /* height: 25px; */
+}
+.in-crd{
+  color: #A1A1A1 !important;
+}

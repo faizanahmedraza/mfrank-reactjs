@@ -1,0 +1,327 @@
+.sort-btn {
+    cursor: pointer;
+    width: 175px;
+}
+.page-item.active .page-link {
+    background-color: #1665d8 !important;
+    box-shadow: none;
+}
+.sort-btn:hover {
+    color: #0168fa;
+}
+.badge-sites {
+    padding: 6px !important;
+    font-size: 10px !important;
+}
+.site-update-table th,
+.site-update-table td {
+    width: 200px;
+}
+.site-update-table th,
+.site-update-table td {
+    width: 200px;
+}
+
+/*
+    Site Transfer css
+*/
+.site-transfer-modal .modal-footer {
+    justify-content: flex-start;
+}
+.site-transfer-modal .close-btn {
+    border-radius: 4px;
+    border: 1px solid #eaedf3;
+    background: #f6f6f6;
+    color: #3e3f42;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: bold;
+}
+.site-transfer-modal .error {
+    color: #dc3545;
+    position: relative;
+    text-align: right;
+    top: -15px;
+}
+
+/*
+    Site Page Speed select box CSS
+*/
+.select-device label {
+    display: none;
+}
+.select-device .page-header {
+    float: left;
+    margin-top: 10px;
+}
+/*
+    Site update lock css
+*/
+.lock-div {
+    display: initial;
+}
+.lock-div svg:hover {
+    cursor: pointer;
+}
+
+/*
+    Edit PHP variables
+*/
+
+.edit-php-page .counter-input .form-control {
+    text-align: center;
+}
+
+.edit-php-page .counter-input .input-group-addon {
+    background-color: #97a3b9;
+    align-items: center;
+    display: flex;
+    padding: 0 10px;
+}
+.edit-php-page .counter-input .input-group-addon .fa {
+    font-size: 12px;
+}
+.edit-php-page .disableClass {
+    pointer-events: none;
+}
+.edit-php-page .disableClass:before {
+    content: '';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: none;
+}
+.php-fields {
+    text-transform: capitalize;
+}
+
+/*
+    Domain/SSL CSS
+*/
+.responsive-note-line {
+    font-size: 13px;
+}
+.add-domain-btn {
+    margin-top: 30px;
+}
+.domain-trash-button,
+.domain-trash-button:hover {
+    background: none !important;
+    border: none !important;
+    margin-left: 20px;
+}
+.add-domain-table .react-switch-label {
+    position: relative;
+    top: 12px;
+}
+.domain-action {
+    width: 15%;
+}
+.domain-action button:disabled {
+    color: #dc3545 !important;
+}
+.event-none {
+    pointer-events: none;
+    opacity: 0.8;
+}
+.add-domain-table .badge {
+    font-weight: 600 !important;
+}
+.add-ssl-btn {
+    margin-top: -7px;
+    margin-bottom: 15px;
+}
+/*
+    PHP version CSS
+*/
+.php-version-btn {
+    margin-top: 28px;
+}
+.php-version-col {
+    padding-right: 0px;
+}
+
+.php-version-modal .modal-footer {
+    justify-content: flex-start;
+}
+
+/* Php Slow Logs Css  */
+
+.php-slow-log-modal .close-btn {
+    border-radius: 4px;
+    border: 1px solid #eaedf3;
+    background: #f6f6f6;
+    color: #3e3f42;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: bold;
+}
+.php-version-modal .error {
+    color: #dc3545;
+    text-align: right;
+}
+/*
+    Tooltip Wrapper operation Css
+*/
+.operation-component .tooltip-wrapper {
+    display: inline-block;
+}
+.php-slow-log-modal .error {
+    color: #dc3545;
+    position: relative;
+    text-align: right;
+    top: -15px;
+}
+.threshold-btn {
+    margin-top: 30px;
+}
+/* Php Slow Logs Css  */
+
+.log-decline-modal .close-btn {
+    border-radius: 4px;
+    border: 1px solid #eaedf3;
+    background: #f6f6f6;
+    color: #3e3f42;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: bold;
+}
+.log-decline-modal .error {
+    color: #dc3545;
+    text-align: right;
+}
+.pagespeed-table .red,
+.pagespeed-table .red a,
+.pagespeed-table .red:hover {
+    color: red !important;
+}
+.pagespeed-table .blue,
+.pagespeed-table .blue a,
+.pagespeed-table .blue:hover {
+    color: #1665d8 !important;
+}
+.pagespeed-table .blue a:hover,
+.pagespeed-table .red a:hover {
+    color: black !important;
+}
+
+/*
+    Site Failed List
+*/
+.site-speed-page .red,
+.site-speed-page .red a,
+.site-speed-page .red:hover {
+    color: red !important;
+}
+.site-speed-page .red a:hover {
+    color: black !important;
+}
+/*
+    site Cdn CSS
+*/
+.cdn-box {
+    border: 1px solid rgba(72, 94, 144, 0.16);
+    padding: 0 10px;
+}
+.cog-icon {
+    padding: 0px;
+}
+.cog-icon svg {
+    width: 30px !important;
+    height: 30px !important;
+    display: flex;
+    margin-right: 6px;
+}
+/* .site-speed-page {
+    word-break: break-all;
+} */
+/*
+    Site Failed List yellow
+*/
+.site-speed-page .yellow,
+.site-speed-page .yellow a,
+.site-speed-page .yellow:hover {
+    color: gold !important;
+}
+.site-speed-page .yellow a:hover {
+    color: black !important;
+}
+.site-speed-page .event-none {
+    color: gray;
+    opacity: 0.5;
+}
+.site-speed-page {
+}
+.retest-action {
+    min-width: 100px;
+    text-align: center;
+}
+
+/*
+    identify-platform css
+*/
+.identify-platform label {
+    display: none;
+}
+.plateform-action {
+    min-width: 150px;
+}
+.platform-detail .identify-platform {
+    max-width: 200px;
+}
+
+/*
+    Site Staging
+*/
+.stage-env-main {
+    display: inline;
+    position: relative;
+}
+.btn-stage {
+    padding: 0px;
+    font-size: 0.875rem;
+    color: #1665d8 !important;
+    border: none;
+    background: transparent;
+    margin-left: 6px;
+}
+.btn-stage:focus {
+    outline: none;
+}
+
+.nestify-row {
+    background-color: #3e5ee2 !important;
+    color: white !important;
+}
+.nestify-row a {
+    color: white !important;
+}
+.pressable-row {
+    background-color: #2b334f !important;
+    color: white !important;
+}
+.pressable a {
+    color: white !important;
+}
+.site-list-page .one-click-wp,
+.site-list-page.btn,
+.site-list-page .btn-primary {
+    background: none !important;
+    border: none !important;
+}
+
+.one-click-wp svg {
+    width: 25px;
+    height: 25px;
+}
+
+.one-click-wp svg:hover {
+    fill: #1665d8 !important;
+}
