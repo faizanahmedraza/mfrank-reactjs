@@ -34,7 +34,7 @@ class BlogListComponent extends Component {
                         <div className="container">
 
                             <h4 className="tx-color-01 mg-b-15 mt-3">
-                                Blog List
+                            Product List
                                 <a
                                     href={"/add"}
                                     className="btn-link ml-2"

@@ -7,12 +7,12 @@ class CreateBlogComponent extends Component {
         return (
             <React.Fragment>
                 {/* <TemplateMain> */}
-                    <h4 className="tx-color-01 mg-b-15">Create New Blog</h4>
+                    <h4 className="tx-color-01 mg-b-15">Create New Product</h4>
                     <div className="content content-components">
                         <div className="container">
                             <Container>
                                 <h4 className="tx-color-01 mg-b-15">
-                                    Create New Blog
+                                    Create New Product
                                 </h4>
                                 <BlogFormComponent
                                     method="POST"

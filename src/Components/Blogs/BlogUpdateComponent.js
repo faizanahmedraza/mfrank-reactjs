@@ -12,7 +12,7 @@ class BlogUpdateComponent extends Component {
                         <div className="container">
                             <Container>
                                 <h4 className="tx-color-01 mg-b-15">
-                                    Update Blog
+                                    Update Product
                                 </h4>
                                 <BlogFormComponent
                                     method="PUT"
