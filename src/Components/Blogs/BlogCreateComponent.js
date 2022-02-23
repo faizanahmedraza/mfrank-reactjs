@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import TemplateMain from "Templates/TemplateMain";
+// import TemplateMain from "Templates/TemplateMain";
 import BlogFormComponent from "Components/Blogs/Forms/BlogFormComponent";
 class CreateBlogComponent extends Component {
     render() {
         return (
             <React.Fragment>
-                <TemplateMain>
+                {/* <TemplateMain> */}
                     <h4 className="tx-color-01 mg-b-15">Create New Blog</h4>
                     <div className="content content-components">
                         <div className="container">
@@ -22,7 +22,7 @@ class CreateBlogComponent extends Component {
                             </Container>
                         </div>
                     </div>
-                </TemplateMain>
+                {/* </TemplateMain> */}
             </React.Fragment>
         );
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import "Assets/css/guest.css";
 import { connect } from "react-redux";
-import BlogListAction from "Redux/V1/Blogs/Get/BlogGetAction";
+import BlogListAction from "Redux/V1/Products/Get/BlogGetAction";
 import HomeBusiness from "Businesses/Home/HomeBusiness";
 import queryString from "query-string";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

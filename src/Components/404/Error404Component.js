@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import Sidebar from "Components/Sidebar";
-import TemplateMain from "Templates/TemplateMain";
+// import Sidebar from "Components/Sidebar";
+// import TemplateMain from "Templates/TemplateMain";
 
 class Error404Component extends Component {
   render() {
     return (
       <React.Fragment>
-        <TemplateMain>
-          <Sidebar active="404" />
+        {/* <TemplateMain> */}
+          {/* <Sidebar active="404" /> */}
 
           <div className="content content-components page-404">
             <div className="container">
@@ -28,7 +28,7 @@ class Error404Component extends Component {
               </div>
             </div>
           </div>
-        </TemplateMain>
+        {/* </TemplateMain> */}
       </React.Fragment>
     );
   }

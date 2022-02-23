@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Badge } from "react-bootstrap";
 import { connect } from "react-redux";
-import BlogFirstAction from "Redux/V1/Blogs/First/BlogFirstAction";
+import BlogFirstAction from "Redux/V1/Products/First/ProductFirstAction";
 import TemplateMain from "Templates/TemplateMain";
 import "Assets/css/blogs.css";
 

@@ -1,37 +1,42 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Table, Row, Col } from "react-bootstrap";
-import TemplateMain from "Templates/TemplateMain";
-import BlogDeleteAction from "Redux/V1/Blogs/Delete/BlogDeleteAction";
-import BlogFilterForm from "Components/Forms/BlogFilterForm";
+import { Table } from "react-bootstrap";
+// import TemplateMain from "Templates/TemplateMain";
+// import BlogDeleteAction from "Redux/V1/Products/Delete/ProductDeleteAction";
+// import BlogFilterForm from "Components/Forms/BlogFilterForm";
 import Confirm from "Helpers/ConfirmationHelper";
-import NoDataHelper from "Helpers/NoDataHelper";
+// import NoDataHelper from "Helpers/NoDataHelper";
 import BlogBusiness from "Businesses/Blogs/BlogBusiness";
-import PaginationDropDown from "Components/Includes/DropDownComponent";
-import PaginationNumber from "Components/Includes/PaginationComponent";
+import ProductGetAction from 'Redux/V1/Products/Get/ProductGetAction';
+import ProductDeleteAction from 'Redux/V1/Products/Delete/ProductDeleteAction';
+// import PaginationDropDown from "Components/Includes/DropDownComponent";
+// import PaginationNumber from "Components/Includes/PaginationComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "Assets/css/users.css";
 
 class BlogListComponent extends Component {
+    componentDidMount() {
+        this.props.dispatch(ProductGetAction.productGet());
+    }
+
     blogDelete = (id) => {
-        Confirm(this.props.dispatch, BlogDeleteAction.blogDelete(id));
+        Confirm(this.props.dispatch, ProductDeleteAction.productDelete(id));
     };
 
     render() {
-        const blogs = this.props.blogs.blogs;
-        const loading = this.props.blogs.loading;
-        const pagination = this.props.blogs.pagination;
+        const blogs = this.props.products.products.data;
+        // const loading = this.props.products.products.data;
         return (
             <React.Fragment>
-                <TemplateMain>
+                {/* <TemplateMain> */}
                     <div className="content content-components">
                         <div className="container">
 
                             <h4 className="tx-color-01 mg-b-15 mt-3">
                                 Blog List
                                 <a
-                                    href={"/blogs/add"}
+                                    href={"/add"}
                                     className="btn-link ml-2"
                                     title="Add"
                                 >
@@ -51,9 +56,9 @@ class BlogListComponent extends Component {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Image</th>
                                             <th>Title</th>
-                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
                                             <th className="text-center action">
                                                 Action
                                             </th>
@@ -61,12 +66,12 @@ class BlogListComponent extends Component {
                                     </thead>
 
                                     <tbody>
-                                        {blogs.length === null
+                                        {/* {blogs.length === null
                                             ? NoDataHelper.available()
                                             : NoDataHelper.available(
                                                   blogs,
                                                   loading
-                                              )}
+                                              )} */}
                                         {BlogBusiness.generate(
                                             blogs,
                                             this.onSwitch,
@@ -74,29 +79,29 @@ class BlogListComponent extends Component {
                                         )}
                                     </tbody>
                                 </Table>
-                                <Row>
+                                {/* <Row>
                                     <Col md={4}>
                                         <PaginationDropDown
                                             title={"Blogs"}
-                                            perPage={pagination.per_page}
-                                            total={pagination.total}
+                                            // perPage={pagination.per_page}
+                                            // total={pagination.total}
                                         />
                                     </Col>
                                     <Col md={4}>
                                         <PaginationNumber
-                                            perPage={pagination.per_page}
-                                            totalPages={pagination.total_pages}
-                                            currentPage={
-                                                pagination.current_page
-                                            }
+                                            // perPage={pagination.per_page}
+                                            // totalPages={pagination.total_pages}
+                                            // currentPage={
+                                            //     pagination.current_page
+                                            // }
                                         />
                                     </Col>
                                     <Col md={4}></Col>
-                                </Row>
+                                </Row> */}
                             </div>
                         </div>
                     </div>
-                </TemplateMain>
+                {/* </TemplateMain> */}
             </React.Fragment>
         );
     }
@@ -104,7 +109,7 @@ class BlogListComponent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        blogs: state.blogs.list,
+        products: state.products.list,
     };
 };
 

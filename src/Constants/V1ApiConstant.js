@@ -13,7 +13,13 @@ const V1 = {
     customers: "v1/admin/customers",
   },
   tag: {
-    tags: "v1/admin/blog/tags",
+    tags: "api/tag",
+  },
+  category: {
+    categories: "api/category"
+  },
+  product: {
+    products: "api/product"
   },
   blog: {
     blogs: "v1/admin/blog/posts",

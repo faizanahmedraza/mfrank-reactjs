@@ -3,60 +3,62 @@ import { Row, Col, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import InputUpdateField from "Components/Forms/Fields/InputUpdateField";
 import InputSelectField from "Components/Forms/Fields/InputSelectField";
-import BlogCreateAction from "Redux/V1/Blogs/Post/BlogPostAction";
+import productCreateAction from "Redux/V1/Products/Post/ProductPostAction";
+import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
+import CategoryListAction from 'Redux/V1/Categories/Get/CategoryGetAction';
 // import PermissionListAction from "Redux/V1/Permissions/Get/PermissionGetAction";
 // import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
-import BlogDetailAction from "Redux/V1/Blogs/First/BlogFirstAction";
-import BlogUpdateAction from "Redux/V1/Blogs/Put/BlogPutAction";
-import BlogValidation from "Validations/BlogValidation";
+import productDetailAction from "Redux/V1/Products/First/ProductFirstAction";
+import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
+import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
-import UploadPhotoField from "Components/Forms/Fields/UploadPhotoField";
+// import UploadPhotoField from "Components/Forms/Fields/UploadPhotoField";
 let current_image = false;
-class BlogFormComponent extends Component {
+class productFormComponent extends Component {
     state = {
         form: {
-            product_title: null,
-            product_category: [],
-            product_tags: [],
-            product_price: null,
-            product_description: null,
+            title: null,
+            categories: [],
+            tags: [],
+            price: null,
+            status: null,
+            description: null,
+            images: [],
         },
         default_data: false,
-        product_files: [],
-        // variation_files: [],
-        product_variation: [
-            {   
+        variations: [
+            {
                 color: '',
                 size: '',
-                files: [],
+                images: [],
             }
         ]
     };
     componentDidMount() {
-        // this.props.dispatch(PermissionListAction.permissionGet());
-        // this.props.dispatch(TagListAction.tagGet("pagination=false"));
+        this.props.dispatch(TagListAction.tagGet());
+        this.props.dispatch(CategoryListAction.categoryGet());
         if (this.props.method === "PUT")
-            this.props.dispatch(BlogDetailAction.blogFirst(this.props.params));
+            this.props.dispatch(productDetailAction.productFirst(this.props.params));
     }
     handleColorChange = (e) => {
         const index = e.target.dataset.index
-        let product_variation = [...this.state.product_variation];
-        product_variation[index].color = e.target.value
+        let variations = [...this.state.variations];
+        variations[index].color = e.target.value
         this.setState({
-            product_variation
+            variations
         });
     }
     handleSizeChange = (e) => {
         const index = e.target.dataset.index
-        let product_variation = [...this.state.product_variation];
-        product_variation[index].size = e.target.value
+        let variations = [...this.state.variations];
+        variations[index].size = e.target.value
         this.setState({
-            product_variation
+            variations
         });
     }
     handleChange = (e) => {
-        const index = e.target.dataset.index
-        let product_variation = [...this.state.product_variation];
+        // const index = e.target.dataset.index
+        let variations = [...this.state.variations];
 
         const errorUpdate = ErrorBusiness.errorRemove(
             this.state.error,
@@ -70,7 +72,7 @@ class BlogFormComponent extends Component {
 
         this.setState({
             form,
-            product_variation
+            variations
         });
     };
 
@@ -86,24 +88,38 @@ class BlogFormComponent extends Component {
         });
     };
 
-    setSelectedFile = async (e) => {
-        const value = {
-            name: e.target.files[0].name,
-            type: e.target.files[0].type,
-            size: e.target.files[0].size,
-        };
-        const formImage = await this.toBase64(e.target.files[0]);
-        let { form } = this.state;
-        current_image = true;
-        this.setState({
-            error_clear: false,
-            form: {
-                ...form,
-                image_value: value,
-                image: formImage,
-            },
-        });
-    };
+    setSelectedProductFiles = async (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const newImagesPromises = []
+            for (let i = 0; i < e.target.files.length; i++) {
+                newImagesPromises.push(this.toBase64(e.target.files[i]))
+            }
+            const newImages = await Promise.all(newImagesPromises);
+            let { form } = this.state;
+            this.setState({
+                form: {
+                    ...form,
+                    images: [...this.state.form.images, ...newImages]
+                }
+            })
+        }
+    }
+
+    setSelectedProductFilesForVar = async (e) => {
+        const index = e.target.dataset.index;
+        let newImages = [];
+        if (e.target.files && e.target.files.length > 0) {
+            const newImagesPromises = [];
+            for (let i = 0; i < e.target.files.length; i++) {
+                newImagesPromises.push(this.toBase64(e.target.files[i]))
+            }
+            newImages = await Promise.all(newImagesPromises);
+        }
+        let variations = [...this.state.variations];
+        variations[index].images = [...newImages];
+        this.setState({ variations })
+    }
+
     toBase64 = (file) =>
         new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -111,10 +127,35 @@ class BlogFormComponent extends Component {
             reader.onload = () => resolve(reader.result);
             reader.onerror = (error) => reject(error);
         });
+
     handleFormSubmit = (e) => {
         e.preventDefault();
-        // let { form, product_variation } = this.state;
+        // let { form, variations } = this.state;
         console.log("Data ==>", this.state);
+        if (this.props.method === 'PUT') {
+            let { form } = this.state;
+            form['variations'] = this.state.variations;
+            this.props.dispatch(
+                productUpdateAction.productPut({
+                    form: this.state.form,
+                    id: this.props.params,
+                })
+            );
+        }
+        if (this.props.method === 'POST') {
+            let { form } = this.state;
+            form['variations'] = this.state.variations;
+            ProductValidation.validate(this.state.form, { abortEarly: false })
+                .then(() => {
+                    this.props.dispatch(
+                        productCreateAction.productPost(this.state.form)
+                    );
+                }).catch((err) => {
+                    this.setState({
+                        error: ErrorBusiness.errorGet(err),
+                    });
+                });
+        }
     }
     handleSubmit = (e) => {
         if (this.props.method === "PUT") {
@@ -124,7 +165,7 @@ class BlogFormComponent extends Component {
                 let img = form.image;
                 form.image = null;
                 this.props.dispatch(
-                    BlogUpdateAction.blogPut({
+                    productUpdateAction.productPut({
                         form: this.state.form,
                         id: this.props.params,
                     })
@@ -132,7 +173,7 @@ class BlogFormComponent extends Component {
                 form.image = img;
             } else {
                 this.props.dispatch(
-                    BlogUpdateAction.blogPut({
+                    productUpdateAction.productPut({
                         form: this.state.form,
                         id: this.props.params,
                     })
@@ -141,10 +182,10 @@ class BlogFormComponent extends Component {
         }
         if (this.props.method === "POST") {
             e.preventDefault();
-            BlogValidation.validate(this.state.form, { abortEarly: false })
+            ProductValidation.validate(this.state.form, { abortEarly: false })
                 .then(() => {
                     this.props.dispatch(
-                        BlogCreateAction.blogPost(this.state.form)
+                        productCreateAction.productPost(this.state.form)
                     );
                 })
                 .catch((err) => {
@@ -155,57 +196,60 @@ class BlogFormComponent extends Component {
         }
     };
 
-    fileSelectedHandler = (e) => {
-        this.setState({ files: [...this.state.product_files, ...e.target.files] })
-    }
-    fileSelectedHandlerForVar = (e) => {
-        
-        const index = e.target.dataset.index
-        let product_variation = [...this.state.product_variation];
-        product_variation[index].files = e.target.files;
-        this.setState({product_variation})
-    
-    }
-
     setDefaultData = () => {
         if (this.props.method === "PUT") {
-            const { form, default_data } = this.state;
+            let { form, default_data, variations } = this.state;
 
             if (default_data === false) {
                 setTimeout(() => {
-                    form.title = this.props.blog.title;
-                    form.description = this.props.blog.description;
-                    form.link = this.props.blog.link;
-                    form.image = this.props.blog.image;
+                    form.title = this.props.product.title;
+                    form.description = this.props.product.description;
+                    form.price = this.props.product.price;
+                    // form.link = this.props.product.link;
+                    // form.image = this.props.product.image;
                     form.status = {
-                        value: this.props.blog.status,
-                        label: this.props.blog.status,
+                        value: this.props.product.status ? "Active" : "In Active",
+                        label: this.props.product.status ? "Active" : "In Active",
                     };
-                    form.tags = this.props.blog.tags.map((tag) => {
+                    form.description = this.props.product.description
+                    // form.status = {
+                    //     value: this.props.product.status,
+                    //     label: this.props.product.status,
+                    // }
+                    form.categories = this.props.product.product_categories.map((cat) => {
+                        return { value: cat.id, label: cat.name };
+                    });
+
+                    form.tags = this.props.product.product_tags.map((tag) => {
                         return { value: tag.id, label: tag.name };
+                    });
+
+                    variations = this.props.product.product_variation.map((cat) => {
+                        return { color: cat.color, size: cat.size };
                     });
 
                     this.setState({
                         form,
-                        default_data: this.props.blog_fetched,
+                        default_data: true,
+                        variations
                     });
-                }, 100);
+                }, 5000);
             }
         }
     };
 
     handleCloneChange(i, e) {
-        let formValues = this.state.product_variation;
+        let formValues = this.state.variations;
         formValues[i][e.target.name] = e.target.value;
         this.setState({ formValues });
     }
     addFormFields() {
         this.setState(({
-            product_variation: [...this.state.product_variation, { color: "", size: "", files: [] }]
+            variations: [...this.state.variations, { color: "", size: "", files: [] }]
         }))
     }
     removeFormFields(i) {
-        let formValues = this.state.product_variation;
+        let formValues = this.state.variations;
         formValues.splice(i, 1);
         this.setState({ formValues });
     }
@@ -216,26 +260,32 @@ class BlogFormComponent extends Component {
         // ) {
         //     return { value: permission.id, label: permission.name };
         // });
-        const catOptions = [
-            { 
-                value: "Cat 1", 
-                label: "Cat 1" 
-            },
-            {
-                value: "Cat 2",
-                label: "Cat 2",
-            },
-        ];
-        const tagsOptions = [
-            { 
-                value: "Tag 1", 
-                label: "Tag 1" 
-            },
-            {
-                value: "Tag 2",
-                label: "Tag 2",
-            },
-        ];
+        const tagsOptions = this.props.tags.map(function (tag) {
+            return { value: tag.id, label: tag.name };
+        });
+        const catOptions = this.props.categories.map(function (category) {
+            return { value: category.id, label: category.name };
+        });
+        // const catOptions = [
+        //     {
+        //         value: "Cat 1",
+        //         label: "Cat 1"
+        //     },
+        //     {
+        //         value: "Cat 2",
+        //         label: "Cat 2",
+        //     },
+        // ];
+        // const tagsOptions = [
+        //     {
+        //         value: "Tag 1",
+        //         label: "Tag 1"
+        //     },
+        //     {
+        //         value: "Tag 2",
+        //         label: "Tag 2",
+        //     },
+        // ];
         // const tagsOptions = this.props.tags.map(function (tag) {
         //     return { value: tag.id, label: tag.name };
         // });
@@ -250,56 +300,56 @@ class BlogFormComponent extends Component {
                     <Row>
                         <Col sm={6}>
                             <InputUpdateField
-                                name="product_title"
+                                name="title"
                                 placeholder="Product Title"
                                 onChange={this.handleChange}
-                                defaultValue={this.state.form.product_title}
-                                // schema={BlogValidation}
+                                defaultValue={this.state.form.title}
+                                schema={ProductValidation}
                                 error={this.state.error}
                             />
                         </Col>
                         <Col sm={6}>
                             <label>Select Product Category</label>
                             <InputSelectField
-                                name="product_category"
+                                name="categories"
                                 placeholder="Select Product Category"
                                 option={catOptions}
                                 onChange={(options, e) =>
                                     this.handleMultiSelect(e, options)
                                 }
-                                value={this.state.form.product_category}
-                                schema={BlogValidation}
+                                value={this.state.form.categories}
+                                schema={ProductValidation}
                                 error={this.state.error}
                             />
                         </Col>
                         <Col sm={6}>
                             <label>Select Product Tag</label>
                             <InputSelectField
-                                name="product_tags"
+                                name="tags"
                                 placeholder="Select Product Tag"
                                 option={tagsOptions}
                                 onChange={(options, e) =>
                                     this.handleMultiSelect(e, options)
                                 }
-                                value={this.state.form.product_tags}
-                                schema={BlogValidation}
+                                value={this.state.form.tags}
+                                schema={ProductValidation}
                                 error={this.state.error}
                             />
                         </Col>
                         <Col sm={6}>
                             <InputUpdateField
-                                name="product_price"
+                                name="price"
                                 placeholder="Product Price"
                                 onChange={this.handleChange}
-                                defaultValue={this.state.form.product_price}
-                                // schema={BlogValidation}
+                                defaultValue={this.state.form.price}
+                                schema={ProductValidation}
                                 error={this.state.error}
                             />
                         </Col>
                         <Col sm={6}>
                             <label htmlFor="Product Image">Product Image</label>
                             <div className="multi-upload-file">
-                                <input type="file" multiple onChange={this.fileSelectedHandler}/>
+                                <input type="file" multiple onChange={this.setSelectedProductFiles} />
                             </div>
                         </Col>
                         <Col sm={6}>
@@ -312,7 +362,7 @@ class BlogFormComponent extends Component {
                                     this.handleMultiSelect(e, options)
                                 }
                                 value={this.state.form.status}
-                                schema={BlogValidation}
+                                schema={ProductValidation}
                                 error={this.state.error}
                                 isMulti={false}
                             />
@@ -322,12 +372,12 @@ class BlogFormComponent extends Component {
                                 <label htmlFor="Product Description">
                                     Product Description
                                 </label>
-                                <textarea 
+                                <textarea
                                     onChange={this.handleChange}
-                                    value={this.state.form.product_description}
-                                    name="product_description" 
-                                    id="product_description"
-                                    className="form-control" 
+                                    value={this.state.form.description}
+                                    name="description"
+                                    id="description"
+                                    className="form-control"
                                     rows="5"></textarea>
                             </div>
                         </Col>
@@ -336,21 +386,20 @@ class BlogFormComponent extends Component {
                                 Product Variation
                                 <button
                                     type="button"
-                                    onClick={() => this.addFormFields()} 
+                                    onClick={() => this.addFormFields()}
                                     className="btn btn-primary ml-2">Add</button>
                             </label>
-                            {this.state.product_variation.map((element, index) => {
-                                console.log("Index", index);
+                            {this.state.variations.map((element, index) => {
                                 return (
                                     <div className="row align-items-center" key={index}>
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group" >
                                                 <input
-                                                    value={element.color || ""} 
+                                                    value={element.color || ""}
                                                     type="text"
-                                                    name="pro_color" 
-                                                    id="pro_color" 
-                                                    className="form-control" 
+                                                    name="pro_color"
+                                                    id="pro_color"
+                                                    className="form-control"
                                                     onChange={this.handleColorChange}
                                                     data-index={index}
                                                     placeholder="Enter Color" />
@@ -358,12 +407,12 @@ class BlogFormComponent extends Component {
                                         </div>
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group">
-                                                <input 
+                                                <input
                                                     value={element.size || ""}
-                                                    type="text" 
-                                                    name="pro_size" 
-                                                    id="pro_size" 
-                                                    className="form-control" 
+                                                    type="text"
+                                                    name="pro_size"
+                                                    id="pro_size"
+                                                    className="form-control"
                                                     data-index={index}
                                                     onChange={this.handleSizeChange}
                                                     placeholder="Enter Size" />
@@ -372,22 +421,22 @@ class BlogFormComponent extends Component {
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group">
                                                 <div className="multi-upload-file">
-                                                    <input 
+                                                    <input
                                                         type="file"
-                                                        name="pro_files" 
-                                                        id="pro_files" 
-                                                        multiple 
+                                                        name="pro_files"
+                                                        id="pro_files"
+                                                        multiple
                                                         data-index={index}
-                                                        onChange={this.fileSelectedHandlerForVar}/>
+                                                        onChange={this.setSelectedProductFilesForVar} />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group">
                                                 {
-                                                    index ? 
-                                                    <button type="button"  className="btn btn-danger" onClick={() => this.removeFormFields(index)}>Remove</button> 
-                                                    : null
+                                                    index ?
+                                                        <button type="button" className="btn btn-danger" onClick={() => this.removeFormFields(index)}>Remove</button>
+                                                        : null
                                                 }
                                             </div>
                                         </div>
@@ -414,15 +463,12 @@ class BlogFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
-        // blog: state.blogs.detail.blog,
-        // blog_fetched: state.blogs.detail.fetched,
-        // tag_fetched: state.tags.detail.fetched,
-        // permissions: state.permissions.permissions,
-        // tags: state.tags.list.tags,
-        // blog_create: state.blogs.create,
-        // blog_update: state.blogs.update,
+        tags: state.tags.list.tags,
+        categories: state.categories.list.categories,
+        product: state.products.detail.product
     };
 };
 
-export default connect(mapStateToProps)(BlogFormComponent);
+export default connect(mapStateToProps)(productFormComponent);

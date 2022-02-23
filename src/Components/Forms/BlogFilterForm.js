@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Button, Col } from "react-bootstrap";
 import AsyncSelectField from "Components/Forms/Fields/AsyncSelectField";
-import BlogListAction from "Redux/V1/Blogs/Get/BlogGetAction";
+// import BlogListAction from "Redux/V1/Products/Get/BlogGetAction";
 import queryString from "query-string";
 // import InputSelectField from "Components/Forms/Fields/InputSelectField";
 // import InputDateField from "Components/Forms/Fields/InputDateField";
@@ -23,11 +23,11 @@ class BlogFilterForm extends Component {
     const params = Object.entries(query)
       .map(([key, value]) => key + "=" + value)
       .join("&");
-    this.props.dispatch(BlogListAction.blogGet({
-      params: params,
-      type: "admin"
-    })
-    );
+    // this.props.dispatch(BlogListAction.blogGet({
+    //   params: params,
+    //   type: "admin"
+    // })
+    // );
   }
   handleSelect = (e, options) => {
     localStorage.setItem(e.name, JSON.stringify(options));
