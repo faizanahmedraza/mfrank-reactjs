@@ -19,32 +19,32 @@ import 'Assets/css/sites.css';
 //         });
 //     }
 // };
-const generate = (data, quickLogin, blogDelete) => {
+const generate = (data, quickLogin, productDelete) => {
     if (data) {
-        const list = data.map((blog) => {
+        const list = data.map((product) => {
             return (
                 <React.Fragment>
                     <tr
                         className="">
                         <td>
-                            {blog.id}
+                            {product.id}
                         </td>
                         <td>
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href={'/edit/' + blog.id}>
-                                {Capitilize.capital(blog.title)}
+                                href={'/edit/' + product.id}>
+                                {Capitilize.capital(product.title)}
                             </a>
                         </td>
 
                         <td>
-                            {blog.description}
+                            {product.description}
                         </td>
-                        <td>{blog.status === 1 ? "Active" : "In Active"}</td>
+                        <td>{product.status === 1 ? "Active" : "In Active"}</td>
                         <td className="text-center custom-control custom-switch">
                             <a
-                                href={"/edit/" + blog.id}
+                                href={"/edit/" + product.id}
                                 className={`btn btn-link`}
                                 title={"Edit"
                                 }
@@ -55,7 +55,7 @@ const generate = (data, quickLogin, blogDelete) => {
                                 className="btn text-danger"
                                 title={"Delete"
                                 }
-                                onClick={() => blogDelete(blog.id)}
+                                onClick={() => productDelete(product.id)}
                                 disabled={
                                     false
                                 }
@@ -71,8 +71,8 @@ const generate = (data, quickLogin, blogDelete) => {
     }
 };
 
-const SiteListBusiness = {
+const ProductBusiness = {
     generate,
 };
 
-export default SiteListBusiness;
+export default ProductBusiness;

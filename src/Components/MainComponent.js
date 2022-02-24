@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import CreateBlogComponent from "Components/Blogs/BlogCreateComponent";
-import BlogListComponent from "Components/Blogs/BlogListComponent";
-// import BlogSingleComponent from "Components/Blogs/BlogSingleComponent";
-import BlogUpdateComponent from "Components/Blogs/BlogUpdateComponent";
+import CreateProductComponent from "Components/Product/ProductCreateComponent";
+import ProductListComponent from "Components/Product/ProductListComponent";
+// import ProductSingleComponent from "Components/Products/ProductSingleComponent";
+import ProductUpdateComponent from "Components/Product/ProductUpdateComponent";
 // import MainComponent from "Components/Public/MainComponent";
 import Component404 from "Components/404/Error404Component";
 class Main extends Component {
@@ -12,22 +12,22 @@ class Main extends Component {
         return (
             <React.Fragment>
                 <Switch>
-                    <Route exact path="/" component={BlogListComponent} />
+                    <Route exact path="/" component={ProductListComponent} />
                     <Route
                         exact
                         path="/add"
-                        component={CreateBlogComponent}
+                        component={CreateProductComponent}
                     />
-                    {/* <Route exact path="/posts" component={BlogListComponent} /> */}
+                    {/* <Route exact path="/posts" component={ProductListComponent} /> */}
                     {/* <Route
                         exact
                         path="/:id"
-                        component={BlogSingleComponent}
+                        component={ProductSingleComponent}
                     /> */}
                     <Route
                         exact
                         path="/edit/:id"
-                        component={BlogUpdateComponent}
+                        component={ProductUpdateComponent}
                     />
                     <Route exact path="/404" component={Component404} />
                     <Redirect to="/404" />

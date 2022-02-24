@@ -32,6 +32,7 @@ class InputSelectField extends React.Component {
                             onChange={this.props.onChange}
                             required={this.props.required}
                             value={this.props.value}
+                            data-index={this.props.index}
                             defaultValue={this.props.defaultValue}
                             isClearable={this.props.isClearable}
                             isDisabled={this.props.disabled ? true : false}

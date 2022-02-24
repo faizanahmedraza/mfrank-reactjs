@@ -5,10 +5,12 @@ import InputUpdateField from "Components/Forms/Fields/InputUpdateField";
 import InputSelectField from "Components/Forms/Fields/InputSelectField";
 import productCreateAction from "Redux/V1/Products/Post/ProductPostAction";
 import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
+import ColorListAction from 'Redux/V1/Variation/Color/Get/ColorGetAction';
+import SizeListAction from 'Redux/V1/Variation/Size/Get/SizeGetAction';
 import CategoryListAction from 'Redux/V1/Categories/Get/CategoryGetAction';
 // import PermissionListAction from "Redux/V1/Permissions/Get/PermissionGetAction";
 // import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
-import productDetailAction from "Redux/V1/Products/First/ProductFirstAction";
+import ProductDetailAction from "Redux/V1/Products/First/ProductFirstAction";
 import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
 import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
@@ -36,26 +38,44 @@ class productFormComponent extends Component {
     };
     componentDidMount() {
         this.props.dispatch(TagListAction.tagGet());
+        this.props.dispatch(ColorListAction.colorGet());
+        this.props.dispatch(SizeListAction.sizeGet());
         this.props.dispatch(CategoryListAction.categoryGet());
         if (this.props.method === "PUT")
-            this.props.dispatch(productDetailAction.productFirst(this.props.params));
+            this.props.dispatch(ProductDetailAction.productFirst(this.props.params));
     }
-    handleColorChange = (e) => {
-        const index = e.target.dataset.index
+    handleColorChange = (e, options, index) => {
+        // const index = e.target // .dataset.index
+        // console.log(options);
+        // console.log(index);
+        // const index = index
         let variations = [...this.state.variations];
-        variations[index].color = e.target.value;
+        variations[index].color = options.label;
+        console.log(variations)
         this.setState({
             variations
         });
     }
-    handleSizeChange = (e) => {
-        const index = e.target.dataset.index
+        handleSizeChange = (e, options, index) => {
+        // const index = e.target // .dataset.index
+        // console.log(options);
+        // console.log(index);
+        // const index = index
         let variations = [...this.state.variations];
-        variations[index].size = e.target.value
+        variations[index].size = options.label;
+        console.log(variations)
         this.setState({
             variations
         });
     }
+    // handleSizeChange = (e) => {
+    //     const index = e.target.dataset.index
+    //     let variations = [...this.state.variations];
+    //     variations[index].size = e.target.value
+    //     this.setState({
+    //         variations
+    //     });
+    // }
     handleChange = (e) => {
         // const index = e.target.dataset.index
         let variations = [...this.state.variations];
@@ -131,7 +151,7 @@ class productFormComponent extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
         // let { form, variations } = this.state;
-        console.log("Data ==>", this.state);
+        // console.log("Data ==>", this.state);
         if (this.props.method === 'PUT') {
             let { form } = this.state;
             form['variations'] = this.state.variations;
@@ -186,8 +206,16 @@ class productFormComponent extends Component {
                         return { value: tag.id, label: tag.name };
                     });
 
-                    variations = this.props.product.product_variation.map((cat) => {
-                        return { color: cat.color, size: cat.size, images: cat.images };
+                    variations = this.props.product.product_variations.map((cat) => {
+                        return { color: {
+                                    value: cat.color.id,
+                                    label: cat.color.name
+                                },
+                                 size: {
+                                    value: cat.size.id,
+                                    label: cat.size.name
+                                 }, 
+                                 images: cat.images };
                     });
 
                     this.setState({
@@ -217,6 +245,9 @@ class productFormComponent extends Component {
     }
 
     render() {
+        // console.log("cat",this.props.categories)
+        // console.log("state",this.state)
+        // console.log("tag",this.props.tags)
         // const permissionOptions = this.props.permissions.map(function (
         //     permission
         // ) {
@@ -255,7 +286,14 @@ class productFormComponent extends Component {
             { value: "active", label: "Active" },
             { value: "In Active", label: "In Active" },
         ];
-        console.log(this.props.product);
+
+        const color = this.props.colors.map(function (color) {
+            return { value: color.id, label: color.name };
+        });
+        const size = this.props.sizes.map(function (size) {
+            return { value: size.id, label: size.name };
+        });
+        // console.log(this.props.product);
         this.setDefaultData();
         return (
             <React.Fragment>
@@ -363,13 +401,25 @@ class productFormComponent extends Component {
                                     className="btn btn-primary ml-2">Add</button>
                             </label>
                             {this.state.variations.map((element, index) => {
-                                console.log(element);
-                                // let imgArray = element.images.length ? element.images.split(",") : [];
+                                console.log("my vartions", element)
                                 return (
                                     <div className="row align-items-center" key={index}>
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group" >
-                                                <input
+                                                <InputSelectField
+                                                    name="color"
+                                                    placeholder="color"
+                                                    option={color}
+                                                    index={index}
+                                                    onChange={(options, e) =>
+                                                        this.handleColorChange(e, options,index)
+                                                    }
+                                                    value={element.color}
+                                                    schema={ProductValidation}
+                                                    error={this.state.error}
+                                                    isMulti={false}
+                                                />
+                                                {/* <input
                                                     value={element.color || ""}
                                                     type="text"
                                                     name="pro_color"
@@ -377,12 +427,25 @@ class productFormComponent extends Component {
                                                     className="form-control"
                                                     onChange={this.handleColorChange}
                                                     data-index={index}
-                                                    placeholder="Enter Color" />
+                                                    placeholder="Enter Color" /> */}
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group">
-                                                <input
+                                                <InputSelectField
+                                                    name="size"
+                                                    placeholder="size"
+                                                    option={size}
+                                                    index={index}
+                                                    onChange={(options, e) =>
+                                                        this.handleSizeChange(e, options, index)
+                                                    }
+                                                    value={element.size}
+                                                    schema={ProductValidation}
+                                                    error={this.state.error}
+                                                    isMulti={false}
+                                                />
+                                                {/* <input
                                                     value={element.size || ""}
                                                     type="text"
                                                     name="pro_size"
@@ -390,7 +453,7 @@ class productFormComponent extends Component {
                                                     className="form-control"
                                                     data-index={index}
                                                     onChange={this.handleSizeChange}
-                                                    placeholder="Enter Size" />
+                                                    placeholder="Enter Size" /> */}
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-4 col-lg-3">
@@ -416,14 +479,14 @@ class productFormComponent extends Component {
                                             </div>
                                         </div>
                                         <Col sm={12} className="mb-3">
-                                            {/* {
-                                              (imgArray.length) ?
-                                              imgArray.map((image, index) => {
+                                            {
+                                              (element.images.length) ?
+                                              element.images.map((image, index) => {
                                                   return (
                                                       <img src={image} alt={index} style={{ width: "80px" }} />
                                                   )
                                               }) : ""
-                                            } */}
+                                            }
                                         </Col>
                                     </div>
                                 )
@@ -448,11 +511,13 @@ class productFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.products.detail.product.product_images);
+    console.log(state);
     return {
         tags: state.tags.list.tags,
         categories: state.categories.list.categories,
-        product: state.products.detail.product
+        product: state.products.detail.product,
+        colors: state.variations.colorList.colors,
+        sizes: state.variations.sizeList.sizes
     };
 };
 

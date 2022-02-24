@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
 // import TemplateMain from "Templates/TemplateMain";
-// import BlogDeleteAction from "Redux/V1/Products/Delete/ProductDeleteAction";
-// import BlogFilterForm from "Components/Forms/BlogFilterForm";
+// import ProductDeleteAction from "Redux/V1/Products/Delete/ProductDeleteAction";
+// import ProductFilterForm from "Components/Forms/ProductFilterForm";
 import Confirm from "Helpers/ConfirmationHelper";
 // import NoDataHelper from "Helpers/NoDataHelper";
-import BlogBusiness from "Businesses/Blogs/BlogBusiness";
+import ProductBusiness from "Businesses/Products/ProductBusiness";
 import ProductGetAction from 'Redux/V1/Products/Get/ProductGetAction';
 import ProductDeleteAction from 'Redux/V1/Products/Delete/ProductDeleteAction';
 // import PaginationDropDown from "Components/Includes/DropDownComponent";
@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "Assets/css/users.css";
 
-class BlogListComponent extends Component {
+class ProductListComponent extends Component {
     componentDidMount() {
         this.props.dispatch(ProductGetAction.productGet());
     }
@@ -25,7 +25,7 @@ class BlogListComponent extends Component {
     };
 
     render() {
-        const blogs = this.props.products.products.data;
+        const products = this.props.products.products.data;
         // const loading = this.props.products.products.data;
         return (
             <React.Fragment>
@@ -72,10 +72,10 @@ class BlogListComponent extends Component {
                                                   blogs,
                                                   loading
                                               )} */}
-                                        {BlogBusiness.generate(
-                                            blogs,
+                                        {ProductBusiness.generate(
+                                            products,
                                             this.onSwitch,
-                                            this.blogDelete
+                                            this.productDelete
                                         )}
                                     </tbody>
                                 </Table>
@@ -113,4 +113,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(BlogListComponent);
+export default connect(mapStateToProps)(ProductListComponent);

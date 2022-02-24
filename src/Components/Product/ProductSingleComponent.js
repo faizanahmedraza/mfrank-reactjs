@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import { Row, Col, Badge } from "react-bootstrap";
 import { connect } from "react-redux";
-import BlogFirstAction from "Redux/V1/Products/First/ProductFirstAction";
+import ProductFirstAction from "Redux/V1/Products/First/ProductFirstAction";
 import TemplateMain from "Templates/TemplateMain";
-import "Assets/css/blogs.css";
+import "Assets/css/products.css";
 
-class UpdateBlogComponent extends Component {
+class UpdateProductComponent extends Component {
     state = {
         id: "",
     };
 
     componentDidMount() {
         this.props.dispatch(
-            BlogFirstAction.blogFirst(this.props.match.params.id)
+            ProductFirstAction.productFirst(this.props.match.params.id)
         );
     }
 
     render() {
-        const blogTag = this.props.blog.tags;
-        // const blogPermission = this.props.blog.permissions;
+        const productsTag = this.props.product.tags;
+        // const productPermission = this.props.product.permissions;
         let tagData;
-        if (blogTag) {
-            tagData = blogTag.map((tag) => {
+        if (productsTag) {
+            tagData = productsTag.map((tag) => {
                 return (
                     <React.Fragment>
                         <Badge variant="primary">{tag.name}</Badge>{" "}
@@ -29,8 +29,8 @@ class UpdateBlogComponent extends Component {
                 );
             });
         }
-        // if (blogPermission) {
-        //     permissionData = blogPermission.map((permissions) => {
+        // if (productPermission) {
+        //     permissionData = productPermission.map((permissions) => {
         //         return (
         //             <React.Fragment>
         //                 <Badge variant="primary">{permissions.name}</Badge>{" "}
@@ -44,7 +44,7 @@ class UpdateBlogComponent extends Component {
                     <div className="content content-components">
                         <div className="container">
                             <h4 className="tx-color-01 mg-b-15">
-                                Blog Details
+                                product Details
                             </h4>
                             <Row>
                                 <Col sm={12} className="form-group">
@@ -52,7 +52,7 @@ class UpdateBlogComponent extends Component {
                                     <div>
                                         <img
                                             width="400px"
-                                            src={this.props.blog.image}
+                                            src={this.props.product.image}
                                             alt="there might be some data"
                                             className="center"
                                         ></img>
@@ -64,7 +64,7 @@ class UpdateBlogComponent extends Component {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter your title"
-                                        value={this.props.blog.title}
+                                        value={this.props.product.title}
                                     />
                                 </Col>
                                 <Col sm={6} className="form-group">
@@ -73,7 +73,7 @@ class UpdateBlogComponent extends Component {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter your description"
-                                        value={this.props.blog.description}
+                                        value={this.props.product.description}
                                     />
                                 </Col>
                                 <Col sm={6} className="form-group">
@@ -82,7 +82,7 @@ class UpdateBlogComponent extends Component {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter your Link"
-                                        value={this.props.blog.link}
+                                        value={this.props.product.link}
                                     />
                                 </Col>
                                 <Col sm={6} className="form-group">
@@ -91,7 +91,7 @@ class UpdateBlogComponent extends Component {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter your Status"
-                                        value={this.props.blog.status}
+                                        value={this.props.product.status}
                                     />
                                 </Col>
                                 <Col sm={6} className="form-group">
@@ -102,11 +102,11 @@ class UpdateBlogComponent extends Component {
                                 <Col sm={12}>
                                     <a
                                         href={
-                                            "/blogs/edit/" + this.props.blog.id
+                                            "/products/edit/" + this.props.product.id
                                         }
                                         className="btn btn-primary"
                                     >
-                                        Edit Blog
+                                        Edit product
                                     </a>
                                 </Col>
                             </Row>
@@ -120,8 +120,8 @@ class UpdateBlogComponent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        blog: state.blogs.detail.blog,
+        product: state.products.detail.products,
     };
 };
 
-export default connect(mapStateToProps)(UpdateBlogComponent);
+export default connect(mapStateToProps)(UpdateProductComponent);

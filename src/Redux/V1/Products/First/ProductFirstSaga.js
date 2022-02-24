@@ -6,8 +6,8 @@ import ProductService from "Services/V1/ProductService";
 function* productFirst(data) {
     try {
         const response = yield ProductService.productFirst(data.request);
-        if (response.length !== 0) {
-            yield put(ProductFirstAction.productFirstSuccess(response));
+        if (response.success) {
+            yield put(ProductFirstAction.productFirstSuccess(response.data));
         } else {
             yield put(ProductFirstAction.productFirstFailed(response.error.message));
         }

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 // import TemplateMain from "Templates/TemplateMain";
-import BlogFormComponent from "Components/Blogs/Forms/BlogFormComponent";
+import ProductFormComponent from "Components/Product/Forms/ProductFormComponent";
 
-class BlogUpdateComponent extends Component {
+class ProductUpdateComponent extends Component {
     render() {
         return (
             <React.Fragment>
@@ -14,7 +14,7 @@ class BlogUpdateComponent extends Component {
                                 <h4 className="tx-color-01 mg-b-15">
                                     Update Product
                                 </h4>
-                                <BlogFormComponent
+                                <ProductFormComponent
                                     method="PUT"
                                     params={this.props.match.params.id}
                                     submitText="Update"
@@ -28,4 +28,4 @@ class BlogUpdateComponent extends Component {
     }
 }
 
-export default BlogUpdateComponent;
+export default ProductUpdateComponent;
