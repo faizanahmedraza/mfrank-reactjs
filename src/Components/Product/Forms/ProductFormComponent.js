@@ -29,11 +29,6 @@ class productFormComponent extends Component {
         },
         default_data: false,
         variations: [
-            {
-                color: '',
-                size: '',
-                images: [],
-            }
         ]
     };
     componentDidMount() {
@@ -50,7 +45,7 @@ class productFormComponent extends Component {
         // console.log(index);
         // const index = index
         let variations = [...this.state.variations];
-        variations[index].color = options.label;
+        variations[index].color = options;
         console.log(variations)
         this.setState({
             variations
@@ -62,7 +57,7 @@ class productFormComponent extends Component {
         // console.log(index);
         // const index = index
         let variations = [...this.state.variations];
-        variations[index].size = options.label;
+        variations[index].size = options;
         console.log(variations)
         this.setState({
             variations
@@ -206,16 +201,20 @@ class productFormComponent extends Component {
                         return { value: tag.id, label: tag.name };
                     });
 
-                    variations = this.props.product.product_variations.map((cat) => {
-                        return { color: {
-                                    value: cat.color.id,
-                                    label: cat.color.name
+                    variations = this.props.product.product_variations.map((data) => {
+                        return (
+                            {
+                                color: {
+                                    value: data.color.id,
+                                    label: data.color.name
                                 },
-                                 size: {
-                                    value: cat.size.id,
-                                    label: cat.size.name
-                                 }, 
-                                 images: cat.images };
+                                size: {
+                                    value: data.size.id,
+                                    label: data.size.name
+                                },
+                                images: data.images
+                            }
+                        )
                     });
 
                     this.setState({
@@ -245,43 +244,12 @@ class productFormComponent extends Component {
     }
 
     render() {
-        // console.log("cat",this.props.categories)
-        // console.log("state",this.state)
-        // console.log("tag",this.props.tags)
-        // const permissionOptions = this.props.permissions.map(function (
-        //     permission
-        // ) {
-        //     return { value: permission.id, label: permission.name };
-        // });
         const tagsOptions = this.props.tags.map(function (tag) {
             return { value: tag.id, label: tag.name };
         });
         const catOptions = this.props.categories.map(function (category) {
             return { value: category.id, label: category.name };
         });
-        // const catOptions = [
-        //     {
-        //         value: "Cat 1",
-        //         label: "Cat 1"
-        //     },
-        //     {
-        //         value: "Cat 2",
-        //         label: "Cat 2",
-        //     },
-        // ];
-        // const tagsOptions = [
-        //     {
-        //         value: "Tag 1",
-        //         label: "Tag 1"
-        //     },
-        //     {
-        //         value: "Tag 2",
-        //         label: "Tag 2",
-        //     },
-        // ];
-        // const tagsOptions = this.props.tags.map(function (tag) {
-        //     return { value: tag.id, label: tag.name };
-        // });
         const status = [
             { value: "active", label: "Active" },
             { value: "In Active", label: "In Active" },
@@ -298,6 +266,7 @@ class productFormComponent extends Component {
         return (
             <React.Fragment>
                 <form method={this.props.method} onSubmit={this.handleFormSubmit}>
+                    {console.log(this.state, "state value")}
                     <Row>
                         <Col sm={6}>
                             <InputUpdateField
@@ -471,11 +440,7 @@ class productFormComponent extends Component {
                                         </div>
                                         <div className="col-12 col-md-4 col-lg-3">
                                             <div className="form-group">
-                                                {
-                                                    index ?
                                                         <button type="button" className="btn btn-danger" onClick={() => this.removeFormFields(index)}>Remove</button>
-                                                        : null
-                                                }
                                             </div>
                                         </div>
                                         <Col sm={12} className="mb-3">

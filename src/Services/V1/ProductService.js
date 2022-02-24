@@ -40,7 +40,13 @@ const productBodyData = (data) => {
   });
   _data.images = data.images;
   _data.status = data.status.value;
-  _data.variations = data.variations;
+  _data.variations = data.variations.map(item => {
+    return {
+      color: item.color.label,
+      size: item.size.label,
+      images: item.images
+    }
+  });
   return JSON.stringify(_data);
 };
 
