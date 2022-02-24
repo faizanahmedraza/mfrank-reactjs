@@ -5,13 +5,20 @@ const ProductDetailReducer = (
         loading: false,
         product: {
             title: null,
-            categories: [],
-            tags: [],
+            product_categories: [],
+            product_tags: [],
             price: null,
             description: null,
-            images: [],
+            product_images: [],
+            product_variation: []
         },
-        variations: [],
+        variations: [
+            {
+                size: "",
+                color: "",
+                images: []
+            }
+        ],
         err_mess: null,
         fetched: false,
     },

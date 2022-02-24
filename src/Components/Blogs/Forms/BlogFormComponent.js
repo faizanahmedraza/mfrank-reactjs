@@ -13,7 +13,7 @@ import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
 import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
 // import UploadPhotoField from "Components/Forms/Fields/UploadPhotoField";
-let current_image = false;
+
 class productFormComponent extends Component {
     state = {
         form: {
@@ -43,7 +43,7 @@ class productFormComponent extends Component {
     handleColorChange = (e) => {
         const index = e.target.dataset.index
         let variations = [...this.state.variations];
-        variations[index].color = e.target.value
+        variations[index].color = e.target.value;
         this.setState({
             variations
         });
@@ -157,44 +157,6 @@ class productFormComponent extends Component {
                 });
         }
     }
-    handleSubmit = (e) => {
-        if (this.props.method === "PUT") {
-            e.preventDefault();
-            let { form } = this.state;
-            if (current_image === false) {
-                let img = form.image;
-                form.image = null;
-                this.props.dispatch(
-                    productUpdateAction.productPut({
-                        form: this.state.form,
-                        id: this.props.params,
-                    })
-                );
-                form.image = img;
-            } else {
-                this.props.dispatch(
-                    productUpdateAction.productPut({
-                        form: this.state.form,
-                        id: this.props.params,
-                    })
-                );
-            }
-        }
-        if (this.props.method === "POST") {
-            e.preventDefault();
-            ProductValidation.validate(this.state.form, { abortEarly: false })
-                .then(() => {
-                    this.props.dispatch(
-                        productCreateAction.productPost(this.state.form)
-                    );
-                })
-                .catch((err) => {
-                    this.setState({
-                        error: ErrorBusiness.errorGet(err),
-                    });
-                });
-        }
-    };
 
     setDefaultData = () => {
         if (this.props.method === "PUT") {
@@ -225,7 +187,7 @@ class productFormComponent extends Component {
                     });
 
                     variations = this.props.product.product_variation.map((cat) => {
-                        return { color: cat.color, size: cat.size };
+                        return { color: cat.color, size: cat.size, images: cat.images };
                     });
 
                     this.setState({
@@ -245,7 +207,7 @@ class productFormComponent extends Component {
     }
     addFormFields() {
         this.setState(({
-            variations: [...this.state.variations, { color: "", size: "", files: [] }]
+            variations: [...this.state.variations, { color: "", size: "", images: [] }]
         }))
     }
     removeFormFields(i) {
@@ -293,6 +255,7 @@ class productFormComponent extends Component {
             { value: "active", label: "Active" },
             { value: "In Active", label: "In Active" },
         ];
+        console.log(this.props.product);
         this.setDefaultData();
         return (
             <React.Fragment>
@@ -368,6 +331,16 @@ class productFormComponent extends Component {
                             />
                         </Col>
                         <Col sm={12}>
+                            {
+                                (this.props.product.product_images.length) ?
+                                    this.props.product.product_images.map((element, index) => {
+                                        return (
+                                            <img src={element.image} alt={element.product_id} style={{ width: "100px" }} />
+                                        )
+                                    }) : ""
+                            }
+                        </Col>
+                        <Col sm={12}>
                             <div className="form-group mb-4">
                                 <label htmlFor="Product Description">
                                     Product Description
@@ -390,6 +363,8 @@ class productFormComponent extends Component {
                                     className="btn btn-primary ml-2">Add</button>
                             </label>
                             {this.state.variations.map((element, index) => {
+                                console.log(element);
+                                // let imgArray = element.images.length ? element.images.split(",") : [];
                                 return (
                                     <div className="row align-items-center" key={index}>
                                         <div className="col-12 col-md-4 col-lg-3">
@@ -440,6 +415,16 @@ class productFormComponent extends Component {
                                                 }
                                             </div>
                                         </div>
+                                        <Col sm={12} className="mb-3">
+                                            {/* {
+                                              (imgArray.length) ?
+                                              imgArray.map((image, index) => {
+                                                  return (
+                                                      <img src={image} alt={index} style={{ width: "80px" }} />
+                                                  )
+                                              }) : ""
+                                            } */}
+                                        </Col>
                                     </div>
                                 )
                             })}
@@ -463,7 +448,7 @@ class productFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    console.log(state.products.detail.product.product_images);
     return {
         tags: state.tags.list.tags,
         categories: state.categories.list.categories,
