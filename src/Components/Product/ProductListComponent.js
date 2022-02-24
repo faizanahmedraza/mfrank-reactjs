@@ -20,7 +20,7 @@ class ProductListComponent extends Component {
         this.props.dispatch(ProductGetAction.productGet());
     }
 
-    blogDelete = (id) => {
+    productDelete = (id) => {
         Confirm(this.props.dispatch, ProductDeleteAction.productDelete(id));
     };
 
