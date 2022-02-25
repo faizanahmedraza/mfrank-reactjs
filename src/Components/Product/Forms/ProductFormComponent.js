@@ -63,14 +63,15 @@ class productFormComponent extends Component {
             variations
         });
     }
-    // handleSizeChange = (e) => {
-    //     const index = e.target.dataset.index
-    //     let variations = [...this.state.variations];
-    //     variations[index].size = e.target.value
-    //     this.setState({
-    //         variations
-    //     });
-    // }
+    handleVariationChange = (e) => {
+        const index = e.target.dataset.index
+        let variations = [...this.state.variations];
+        variations[index][e.target.name] = e.target.value
+        console.log(variations)
+        this.setState({
+            variations
+        });
+    }
     handleChange = (e) => {
         // const index = e.target.dataset.index
         let variations = [...this.state.variations];
@@ -160,6 +161,7 @@ class productFormComponent extends Component {
         if (this.props.method === 'POST') {
             let { form } = this.state;
             form['variations'] = this.state.variations;
+            console.log(form)
             ProductValidation.validate(this.state.form, { abortEarly: false })
                 .then(() => {
                     this.props.dispatch(
@@ -212,7 +214,9 @@ class productFormComponent extends Component {
                                     value: data.size.id,
                                     label: data.size.name
                                 },
-                                images: data.images
+                                images: data.images,
+                                cost: data.cost,
+                                quantity: data.quantity
                             }
                         )
                     });
@@ -370,10 +374,9 @@ class productFormComponent extends Component {
                                     className="btn btn-primary ml-2">Add</button>
                             </label>
                             {this.state.variations.map((element, index) => {
-                                console.log("my vartions", element)
                                 return (
                                     <div className="row align-items-center" key={index}>
-                                        <div className="col-12 col-md-4 col-lg-3">
+                                        <div className="col-12 col-md-6 col-lg-6">
                                             <div className="form-group" >
                                                 <InputSelectField
                                                     name="color"
@@ -399,7 +402,7 @@ class productFormComponent extends Component {
                                                     placeholder="Enter Color" /> */}
                                             </div>
                                         </div>
-                                        <div className="col-12 col-md-4 col-lg-3">
+                                        <div className="col-12 col-md-6 col-lg-6">
                                             <div className="form-group">
                                                 <InputSelectField
                                                     name="size"
@@ -425,7 +428,33 @@ class productFormComponent extends Component {
                                                     placeholder="Enter Size" /> */}
                                             </div>
                                         </div>
-                                        <div className="col-12 col-md-4 col-lg-3">
+                                        <div className="col-12 col-md-6 col-lg-6">
+                                            <div className="form-group">
+                                                <input
+                                                value={element.cost || ""}
+                                                type="text"
+                                                name="cost"
+                                                id="cost"
+                                                className="form-control"
+                                                data-index={index}
+                                                onChange={this.handleVariationChange}
+                                                placeholder="Enter Price" />
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-md-6 col-lg-6">
+                                            <div className="form-group">
+                                                <input
+                                                value={element.quantity || ""}
+                                                type="text"
+                                                name="quantity"
+                                                id="quantity"
+                                                className="form-control"
+                                                data-index={index}
+                                                onChange={this.handleVariationChange}
+                                                placeholder="Enter Quantity" />
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-md-6 col-lg-6">
                                             <div className="form-group">
                                                 <div className="multi-upload-file">
                                                     <input
@@ -438,9 +467,9 @@ class productFormComponent extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-12 col-md-4 col-lg-3">
+                                        <div className="col-12 col-md-6 col-lg-6">
                                             <div className="form-group">
-                                                        <button type="button" className="btn btn-danger" onClick={() => this.removeFormFields(index)}>Remove</button>
+                                                <button type="button" className="btn btn-danger btn-block" onClick={() => this.removeFormFields(index)}>Remove</button>
                                             </div>
                                         </div>
                                         <Col sm={12} className="mb-3">
@@ -463,7 +492,12 @@ class productFormComponent extends Component {
                             <Button
                                 type="submit"
                                 variant="outline-primary"
-                                className={`btn-block`}
+                                className={`btn-block ${
+                                    this.props.create_loading ||
+                                    this.props.update_loading
+                                        ? "loading"
+                                        : ""
+                                }`}
                             >
                                 {this.props.submitText}
                             </Button>
@@ -482,7 +516,9 @@ const mapStateToProps = (state) => {
         categories: state.categories.list.categories,
         product: state.products.detail.product,
         colors: state.variations.colorList.colors,
-        sizes: state.variations.sizeList.sizes
+        sizes: state.variations.sizeList.sizes,
+        create_loading: state.products.create.loading,
+        update_loading: state.products.update.loading,
     };
 };
 

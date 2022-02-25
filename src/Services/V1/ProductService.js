@@ -44,7 +44,9 @@ const productBodyData = (data) => {
     return {
       color: item.color.label,
       size: item.size.label,
-      images: item.images
+      images: item.images,
+      cost: item.cost,
+      quantity: item.quantity
     }
   });
   return JSON.stringify(_data);
