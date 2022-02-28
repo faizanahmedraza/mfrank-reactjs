@@ -13,9 +13,9 @@ function* productPut(data) {
         if (response.success) {
             ToastHelper.success(response.message);
             yield put(ProductUpdateAction.productPutSuccess(response));
-            setTimeout(function () {
-                window.location.href = "/";
-            }, 1000);
+            // setTimeout(function () {
+            //     window.location.href = "/";
+            // }, 1000);
         } else {
             ToastHelper.error(response.error.message);
             yield put(ProductUpdateAction.productPutFailed(response.error));

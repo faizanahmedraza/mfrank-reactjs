@@ -39,6 +39,7 @@ const productBodyData = (data) => {
     return category.label;
   });
   _data.images = data.images;
+  console.log("Images",data.images)
   _data.status = data.status.value;
   _data.variations = data.variations.map(item => {
     return {
@@ -47,6 +48,12 @@ const productBodyData = (data) => {
       images: item.images,
       cost: item.cost,
       quantity: item.quantity
+    }
+  });
+  _data.custom_field = data.custom_field.map(data => {
+    return {
+      key: data.custom_field_key,
+      value: data.custom_field_value,
     }
   });
   return JSON.stringify(_data);

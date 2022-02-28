@@ -1,6 +1,7 @@
 import PRODUCT from "Redux/V1/Products/ActionType";
 
 const productPut = (data) => {
+    console.log(data);
     return {
         type: PRODUCT.PRODUCT_PUT,
         request: data,

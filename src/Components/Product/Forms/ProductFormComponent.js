@@ -14,6 +14,7 @@ import ProductDetailAction from "Redux/V1/Products/First/ProductFirstAction";
 import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
 import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
+import "Assets/css/blogs.css"
 // import UploadPhotoField from "Components/Forms/Fields/UploadPhotoField";
 
 class productFormComponent extends Component {
@@ -29,6 +30,8 @@ class productFormComponent extends Component {
         },
         default_data: false,
         variations: [
+        ],
+        custom_field: [
         ]
     };
     componentDidMount() {
@@ -51,7 +54,7 @@ class productFormComponent extends Component {
             variations
         });
     }
-        handleSizeChange = (e, options, index) => {
+    handleSizeChange = (e, options, index) => {
         // const index = e.target // .dataset.index
         // console.log(options);
         // console.log(index);
@@ -70,6 +73,15 @@ class productFormComponent extends Component {
         console.log(variations)
         this.setState({
             variations
+        });
+    }
+    handleCustomFieldChange = (e) => {
+        const index = e.target.dataset.index
+        let custom_field = [...this.state.custom_field];
+        custom_field[index][e.target.name] = e.target.value
+        console.log(custom_field)
+        this.setState({
+            custom_field
         });
     }
     handleChange = (e) => {
@@ -151,6 +163,7 @@ class productFormComponent extends Component {
         if (this.props.method === 'PUT') {
             let { form } = this.state;
             form['variations'] = this.state.variations;
+            form['custom_field'] = this.state.custom_field;
             this.props.dispatch(
                 productUpdateAction.productPut({
                     form: this.state.form,
@@ -161,6 +174,8 @@ class productFormComponent extends Component {
         if (this.props.method === 'POST') {
             let { form } = this.state;
             form['variations'] = this.state.variations;
+            form['custom_field'] = this.state.custom_field;
+            console.log("All data", form)
             console.log(form)
             ProductValidation.validate(this.state.form, { abortEarly: false })
                 .then(() => {
@@ -177,13 +192,25 @@ class productFormComponent extends Component {
 
     setDefaultData = () => {
         if (this.props.method === "PUT") {
-            let { form, default_data, variations } = this.state;
+            let {
+                form,
+                default_data,
+                variations,
+                // custom_field 
+            } = this.state;
 
             if (default_data === false) {
                 setTimeout(() => {
                     form.title = this.props.product.title;
                     form.description = this.props.product.description;
-                    form.price = this.props.product.price;
+                    form.images = this.props.product.product_images;
+                    form.price = this.props.product.price
+
+                    form.images = this.props.product.product_images.map((cat) => {
+                        return cat.image;
+                    });
+
+                    console.log(form.images, 'dadsa');
                     // form.link = this.props.product.link;
                     // form.image = this.props.product.image;
                     form.status = {
@@ -202,6 +229,15 @@ class productFormComponent extends Component {
                     form.tags = this.props.product.product_tags.map((tag) => {
                         return { value: tag.id, label: tag.name };
                     });
+
+                    // customField = this.props.product.custom_field.map((data) => {
+                    //     return (
+                    //         {
+                    //             custom_field_key: data.key,
+                    //             custom_field_value: data.value
+                    //         }
+                    //     )
+                    // })
 
                     variations = this.props.product.product_variations.map((data) => {
                         return (
@@ -247,6 +283,38 @@ class productFormComponent extends Component {
         this.setState({ formValues });
     }
 
+    removeProductImage(index) {
+        let { images } = this.state.form
+        images.splice(index, 1);
+        this.setState({ 
+            images: images   
+        })
+        console.log("FORM", this.state.form)
+    }
+
+    removeImage(i, index) {
+        let formValues = this.state.variations[index].images;
+        console.log("formValues", formValues)
+        formValues.splice(i, 1);
+        this.setState({ formValues });
+    }
+
+    handleCustomFieldCloneChange(i, e) {
+        let formValues = this.state.custom_field;
+        formValues[i][e.target.name] = e.target.value;
+        this.setState({ formValues });
+    }
+    addFormCustomFields() {
+        this.setState(({
+            custom_field: [...this.state.custom_field, { custom_field_key: "", custom_field_value: "" }]
+        }))
+    }
+    removeFormCustomFields(i) {
+        let formValues = this.state.custom_field;
+        formValues.splice(i, 1);
+        this.setState({ formValues });
+    }
+
     render() {
         const tagsOptions = this.props.tags.map(function (tag) {
             return { value: tag.id, label: tag.name };
@@ -266,6 +334,7 @@ class productFormComponent extends Component {
             return { value: size.id, label: size.name };
         });
         // console.log(this.props.product);
+        console.log("Before Map", this.props.product.product_images)
         this.setDefaultData();
         return (
             <React.Fragment>
@@ -342,14 +411,21 @@ class productFormComponent extends Component {
                             />
                         </Col>
                         <Col sm={12}>
-                            {
-                                (this.props.product.product_images.length) ?
-                                    this.props.product.product_images.map((element, index) => {
-                                        return (
-                                            <img src={element.image} alt={element.product_id} style={{ width: "100px" }} />
-                                        )
-                                    }) : ""
-                            }
+                            <div className="img-list-container">
+                                {
+                                    (this.props.product.product_images.length) ?
+                                        this.props.product.product_images.map((element, index) => {
+                                            return (
+                                                <div className="img-list-wrap">
+                                                    <img src={element.image} alt={element.product_id} />
+                                                    <span className="cross cross-icon">
+                                                        <span onClick={() => this.removeProductImage(index)}>X</span>
+                                                    </span>
+                                                </div>
+                                            )
+                                        }) : ""
+                                }
+                            </div>
                         </Col>
                         <Col sm={12}>
                             <div className="form-group mb-4">
@@ -384,22 +460,13 @@ class productFormComponent extends Component {
                                                     option={color}
                                                     index={index}
                                                     onChange={(options, e) =>
-                                                        this.handleColorChange(e, options,index)
+                                                        this.handleColorChange(e, options, index)
                                                     }
                                                     value={element.color}
                                                     schema={ProductValidation}
                                                     error={this.state.error}
                                                     isMulti={false}
                                                 />
-                                                {/* <input
-                                                    value={element.color || ""}
-                                                    type="text"
-                                                    name="pro_color"
-                                                    id="pro_color"
-                                                    className="form-control"
-                                                    onChange={this.handleColorChange}
-                                                    data-index={index}
-                                                    placeholder="Enter Color" /> */}
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6 col-lg-6">
@@ -417,41 +484,32 @@ class productFormComponent extends Component {
                                                     error={this.state.error}
                                                     isMulti={false}
                                                 />
-                                                {/* <input
-                                                    value={element.size || ""}
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-md-6 col-lg-6">
+                                            <div className="form-group">
+                                                <input
+                                                    value={element.cost || ""}
                                                     type="text"
-                                                    name="pro_size"
-                                                    id="pro_size"
+                                                    name="cost"
+                                                    id="cost"
                                                     className="form-control"
                                                     data-index={index}
-                                                    onChange={this.handleSizeChange}
-                                                    placeholder="Enter Size" /> */}
+                                                    onChange={this.handleVariationChange}
+                                                    placeholder="Enter Price" />
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6 col-lg-6">
                                             <div className="form-group">
                                                 <input
-                                                value={element.cost || ""}
-                                                type="text"
-                                                name="cost"
-                                                id="cost"
-                                                className="form-control"
-                                                data-index={index}
-                                                onChange={this.handleVariationChange}
-                                                placeholder="Enter Price" />
-                                            </div>
-                                        </div>
-                                        <div className="col-12 col-md-6 col-lg-6">
-                                            <div className="form-group">
-                                                <input
-                                                value={element.quantity || ""}
-                                                type="text"
-                                                name="quantity"
-                                                id="quantity"
-                                                className="form-control"
-                                                data-index={index}
-                                                onChange={this.handleVariationChange}
-                                                placeholder="Enter Quantity" />
+                                                    value={element.quantity || ""}
+                                                    type="text"
+                                                    name="quantity"
+                                                    id="quantity"
+                                                    className="form-control"
+                                                    data-index={index}
+                                                    onChange={this.handleVariationChange}
+                                                    placeholder="Enter Quantity" />
                                             </div>
                                         </div>
                                         <div className="col-12 col-md-6 col-lg-6">
@@ -473,15 +531,68 @@ class productFormComponent extends Component {
                                             </div>
                                         </div>
                                         <Col sm={12} className="mb-3">
-                                            {
-                                              (element.images.length) ?
-                                              element.images.map((image, index) => {
-                                                  return (
-                                                      <img src={image} alt={index} style={{ width: "80px" }} />
-                                                  )
-                                              }) : ""
-                                            }
+                                            <div className="img-list-container">
+                                                {
+                                                    (element.images.length) ?
+                                                        element.images.map((image, i) => {
+                                                            return (
+                                                                <div className="img-list-wrap">
+                                                                    <img src={image} alt={index} />
+                                                                    <span className="cross cross-icon">
+                                                                        <span onClick={() => this.removeImage(i, index)}>X</span>
+                                                                    </span>
+                                                                </div>
+                                                            )
+                                                        }) : ""
+                                                }
+                                            </div>
                                         </Col>
+                                    </div>
+                                )
+                            })}
+                        </Col>
+                        <Col lg={12} className="profile-cancel-col">
+                            <label className="mb-4">
+                                Add Custom Field
+                                <button
+                                    type="button"
+                                    onClick={() => this.addFormCustomFields()}
+                                    className="btn btn-primary ml-2">Add</button>
+                            </label>
+                            {this.state.custom_field.map((element, index) => {
+                                return (
+                                    <div className="row align-items-center" key={index}>
+                                        <div className="col-12 col-md-6 col-lg-4">
+                                            <div className="form-group">
+                                                <input
+                                                    value={element.custom_field_key || ""}
+                                                    type="text"
+                                                    name="custom_field_key"
+                                                    id="custom_field_key"
+                                                    className="form-control"
+                                                    data-index={index}
+                                                    onChange={this.handleCustomFieldChange}
+                                                    placeholder="Enter Key" />
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-md-6 col-lg-4">
+                                            <div className="form-group">
+                                                <input
+                                                    value={element.custom_field_value || ""}
+                                                    type="text"
+                                                    name="custom_field_value"
+                                                    id="custom_field_value"
+                                                    className="form-control"
+                                                    data-index={index}
+                                                    onChange={this.handleCustomFieldChange}
+                                                    placeholder="Enter Value" />
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-md-6 col-lg-4">
+                                            <div className="form-group">
+                                                <button type="button" className="btn btn-danger btn-block" onClick={() => this.removeFormCustomFields(index)}>Remove</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 )
                             })}
@@ -492,12 +603,11 @@ class productFormComponent extends Component {
                             <Button
                                 type="submit"
                                 variant="outline-primary"
-                                className={`btn-block ${
-                                    this.props.create_loading ||
-                                    this.props.update_loading
+                                className={`btn-block ${this.props.create_loading ||
+                                        this.props.update_loading
                                         ? "loading"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 {this.props.submitText}
                             </Button>
