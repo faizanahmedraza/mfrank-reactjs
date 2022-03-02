@@ -14,26 +14,52 @@ import ProductDetailAction from "Redux/V1/Products/First/ProductFirstAction";
 import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
 import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
+import { InputTags } from 'react-bootstrap-tagsinput'
+import 'react-bootstrap-tagsinput/dist/index.css'
+import { Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "Assets/css/blogs.css"
-// import UploadPhotoField from "Components/Forms/Fields/UploadPhotoField";
+import ReactTags from 'react-tag-autocomplete'
+import {
+    faPlus,
+    faTimes
+} from '@fortawesome/free-solid-svg-icons';
 
 class productFormComponent extends Component {
-    state = {
-        form: {
-            title: null,
-            categories: [],
-            tags: [],
-            price: null,
-            status: null,
-            description: null,
-            images: [],
-        },
-        default_data: false,
-        variations: [
-        ],
-        custom_field: [
-        ]
-    };
+    constructor (props) {
+        super(props)
+
+        this.state = {
+            form: {
+                title: null,
+                categories: [],
+                tags: [],
+                // new_tags: [],
+                price: null,
+                status: null,
+                description: null,
+                images: [],
+            },
+            default_data: false,
+            variations: [
+            ],
+            custom_field: [
+            ],
+            show: false,
+            add_category: null,
+            // new_tags_suggestion: [
+            //     { id: 1, name: "Apples" },
+            //     { id: 2, name: "Pears" }
+            // ],
+            // suggestions: [
+            //     { id: 3, name: "Bananas" },
+            //     { id: 4, name: "Mangos" },
+            //     { id: 5, name: "Lemons" },
+            //     { id: 6, name: "Apricots" }
+            // ]
+        }
+        this.reactTags = React.createRef()
+    }
     componentDidMount() {
         this.props.dispatch(TagListAction.tagGet());
         this.props.dispatch(ColorListAction.colorGet());
@@ -286,8 +312,8 @@ class productFormComponent extends Component {
     removeProductImage(index) {
         let { images } = this.state.form
         images.splice(index, 1);
-        this.setState({ 
-            images: images   
+        this.setState({
+            images: images
         })
         console.log("FORM", this.state.form)
     }
@@ -315,6 +341,17 @@ class productFormComponent extends Component {
         this.setState({ formValues });
     }
 
+    // onDelete(i) {
+    //     const new_tags_suggestion = this.state.new_tags_suggestion.slice(0)
+    //     new_tags_suggestion.splice(i, 1)
+    //     this.setState({ new_tags_suggestion })
+    // }
+
+    // onAddition(tag) {
+    //     const new_tags_suggestion = [].concat(this.state.new_tags_suggestion, tag)
+    //     this.setState({ new_tags_suggestion })
+    // }
+
     render() {
         const tagsOptions = this.props.tags.map(function (tag) {
             return { value: tag.id, label: tag.name };
@@ -333,7 +370,6 @@ class productFormComponent extends Component {
         const size = this.props.sizes.map(function (size) {
             return { value: size.id, label: size.name };
         });
-        // console.log(this.props.product);
         console.log("Before Map", this.props.product.product_images)
         this.setDefaultData();
         return (
@@ -352,7 +388,19 @@ class productFormComponent extends Component {
                             />
                         </Col>
                         <Col sm={6}>
-                            <label>Select Product Category</label>
+                            <label className="icon-wrap-label">
+                                Select Product Category
+                                <div
+                                    className="add-icon-wrap"
+                                    onClick={() =>
+                                        this.setState({ show: true })
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faPlus}
+                                    />
+                                </div>
+                            </label>
                             <InputSelectField
                                 name="categories"
                                 placeholder="Select Product Category"
@@ -365,6 +413,50 @@ class productFormComponent extends Component {
                                 error={this.state.error}
                             />
                         </Col>
+                        {/* <Col sm={6}>
+                            <div className='input-group tag-input-wrapper'>
+                                <label htmlFor="addProductTags">Product Tags</label>
+                                <InputTags
+                                    values={this.state.form.new_tags}
+                                    onTags={() => this.setState(
+                                        {
+                                            form: {
+                                                new_tags: this.state.form.new_tags
+                                            }
+                                        }
+                                    )}
+                                />
+                                <button
+                                    className='btn btn-outline-primary'
+                                    type='button'
+                                    data-testid='button-clearAll'
+                                    onClick={() => {
+                                        this.setState(
+                                            {
+                                                form: {
+                                                    new_tags: []
+                                                }
+                                            }
+                                        )
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faTimes}
+                                    />
+                                </button>
+                            </div>
+                        </Col>
+                        <Col sm={6}>
+                            <div className='input-group tag-input-wrapper'>
+                                <label htmlFor="addProductTags">Product Tags Simple</label>
+                                <ReactTags
+                                    ref={this.reactTags}
+                                    tags={this.state.new_tags_suggestion}
+                                    suggestions={this.state.suggestions}
+                                    onDelete={this.onDelete.bind(this)}
+                                    onAddition={this.onAddition.bind(this)} />
+                            </div>
+                        </Col> */}
                         <Col sm={6}>
                             <label>Select Product Tag</label>
                             <InputSelectField
@@ -604,9 +696,9 @@ class productFormComponent extends Component {
                                 type="submit"
                                 variant="outline-primary"
                                 className={`btn-block ${this.props.create_loading ||
-                                        this.props.update_loading
-                                        ? "loading"
-                                        : ""
+                                    this.props.update_loading
+                                    ? "loading"
+                                    : ""
                                     }`}
                             >
                                 {this.props.submitText}
@@ -614,15 +706,69 @@ class productFormComponent extends Component {
                         </Col>
                     </Row>
                 </form>
+
+                <Modal
+                    show={this.state.show}
+                    onHide={() => this.setState({ show: false })}
+                    dialogClassName="modal-90w"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-custom-modal-styling-title">
+                            Add Category
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div
+                            className="form-container domain-form-container"
+                            id="registration-form">
+                            <div className="domain-modal-scrollable">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div className="form-group" >
+                                            <div className="form-group">
+                                                <label htmlFor="Category">Category</label>
+                                                <input
+                                                    value={this.state.add_category}
+                                                    type="text"
+                                                    name="add_category"
+                                                    id="add_category"
+                                                    className="form-control"
+                                                    onChange={this.handleChange}
+                                                    placeholder="Enter Category" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group" >
+                                            <InputSelectField
+                                                name="categories"
+                                                placeholder="Select Product Category"
+                                                option={catOptions}
+                                                onChange={(options, e) =>
+                                                    this.handleMultiSelect(e, options)
+                                                }
+                                                value={this.state.form.categories}
+                                                schema={ProductValidation}
+                                                error={this.state.error}
+                                            />
+                                        </div>
+                                        <div className="form-group" >
+                                            <button className="btn btn-outline-primary btn-block">Create</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </React.Fragment>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    console.log(state,'fdfdsfsd');
     return {
-        tags: state.tags.list.tags,
+        tags: state.tags.list.tags.data,
         categories: state.categories.list.categories,
         product: state.products.detail.product,
         colors: state.variations.colorList.colors,

@@ -9,7 +9,8 @@ const V1 = {
     products: "api/product"
   },
   color: "api/color",
-  size: "api/size"
+  size: "api/size",
+  product_status: "api/product/status/",
 };
 
 export default V1;

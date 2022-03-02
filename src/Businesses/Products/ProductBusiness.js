@@ -2,6 +2,8 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Capitilize from 'Helpers/CapitilizeHelper';
+// import Confirm from "Helpers/ConfirmationHelper";
+// import ProductStatusAction from "Redux/V1/Products/Status/ProductStatusAction"
 // import { faPhp } from "@fortawesome/free-brands-svg-icons";
 import 'Assets/css/sites.css';
 // import { Badge } from 'react-bootstrap';
@@ -19,13 +21,16 @@ import 'Assets/css/sites.css';
 //         });
 //     }
 // };
-const generate = (data, quickLogin, productDelete) => {
+
+const generate = (data, onSwitch, productDelete) => {
+    console.log("data",data)
     if (data) {
-        const list = data.map((product) => {
+        const list = data.map((product,index) => {
+            console.log("STATUS", product.status)
             return (
                 <React.Fragment>
                     <tr
-                        className="">
+                        className="" key={index}>
                         <td>
                             {product.id}
                         </td>
@@ -41,7 +46,32 @@ const generate = (data, quickLogin, productDelete) => {
                         <td>
                             {product.description}
                         </td>
-                        <td>{product.status === 1 ? "Active" : "In Active"}</td>
+                        <td>
+                            <span className="custom-control custom-switch">
+                                <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id={"customSwitches" + product.id}
+                                    checked={
+                                      +product.status === 1 ? true : false
+                                    }
+
+                                    onChange={() =>
+                                        onSwitch(
+                                            product.id 
+                                        )
+                                    }
+                                />
+
+                                <label
+                                    className="custom-control-label"
+                                    htmlFor={"customSwitches" + product.id}
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title={"Active/In Active"}
+                                ></label>
+                            </span>
+                        </td>
                         <td className="text-center custom-control custom-switch">
                             <a
                                 href={"/edit/" + product.id}

@@ -27,7 +27,6 @@ const productPost = async (data) => {
 };
 
 const productBodyData = (data) => {
-  console.log(data,"test")
   let _data = {};
   _data.title = data.title;
   _data.description = data.description;
@@ -39,7 +38,6 @@ const productBodyData = (data) => {
     return category.label;
   });
   _data.images = data.images;
-  console.log("Images",data.images)
   _data.status = data.status.value;
   _data.variations = data.variations.map(item => {
     return {
@@ -76,12 +74,21 @@ const productPut = async (data, id) => {
   return response;
 };
 
+const productStatus = async (id) => {
+  const response = await Gateway.guestGateway(
+    "PUT",
+    V1.product_status + id
+  );
+  return response;
+};
+
 const ProductService = {
   productGet,
   productFirst,
   productPut,
   productPost,
   productDelete,
+  productStatus,
 };
 
 export default ProductService;

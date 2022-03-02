@@ -4,6 +4,7 @@ import { ProductDetailSaga } from "Redux/V1/Products/First/ProductFirstSaga";
 import { ProductUpdateSaga } from "Redux/V1/Products/Put/ProductPutSaga";
 import { ProductCreateSaga } from "Redux/V1/Products/Post/ProductPostSaga";
 import { ProductDeleteSaga } from "Redux/V1/Products/Delete/ProductDeleteSaga";
+import { ProductStatusSaga } from "Redux/V1/Products/Status/ProductStatusSaga";
 
 export default function* ProductRootSaga() {
   yield all([
@@ -11,6 +12,7 @@ export default function* ProductRootSaga() {
     ProductDetailSaga(),
     ProductUpdateSaga(),
     ProductCreateSaga(),
-    ProductDeleteSaga()
+    ProductDeleteSaga(),
+    ProductStatusSaga()
   ]);
 }

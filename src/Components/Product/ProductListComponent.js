@@ -12,7 +12,9 @@ import ProductDeleteAction from 'Redux/V1/Products/Delete/ProductDeleteAction';
 // import PaginationDropDown from "Components/Includes/DropDownComponent";
 // import PaginationNumber from "Components/Includes/PaginationComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ProductStatusAction from "Redux/V1/Products/Status/ProductStatusAction"
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { MDBDataTable } from 'mdbreact';
 import "Assets/css/users.css";
 
 class ProductListComponent extends Component {
@@ -24,9 +26,46 @@ class ProductListComponent extends Component {
         Confirm(this.props.dispatch, ProductDeleteAction.productDelete(id));
     };
 
+    onSwitch = (id) => {
+        Confirm(this.props.dispatch, ProductStatusAction.productStatus(id));
+    };
+
     render() {
         const products = this.props.products.products.data;
-        // const loading = this.props.products.products.data;
+        const data = {
+            columns: [
+            {
+                label: 'ID',
+                field: 'id',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Title',
+                field: 'title',
+                sort: 'asc',
+                width: 270
+            },
+            {
+                label: 'Description',
+                field: 'description',
+                sort: 'asc',
+                width: 200
+            },
+            {
+                label: 'Status',
+                field: 'status',
+                sort: 'asc',
+                width: 100
+            },
+            {
+                label: 'Action',
+                field: 'action',
+                sort: 'asc',
+                width: 150
+            }
+        ]
+        }
         return (
             <React.Fragment>
                 {/* <TemplateMain> */}
@@ -79,6 +118,12 @@ class ProductListComponent extends Component {
                                         )}
                                     </tbody>
                                 </Table>
+                                <MDBDataTable
+                                    striped
+                                    bordered
+                                    hover
+                                    data={data}
+                                />
                                 {/* <Row>
                                     <Col md={4}>
                                         <PaginationDropDown

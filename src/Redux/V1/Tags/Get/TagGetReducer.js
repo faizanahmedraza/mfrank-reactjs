@@ -3,7 +3,9 @@ import TAG from "Redux/V1/Tags/ActionType";
 const TagListReducer = (
   state = {
     loading: false,
-    tags: [],
+    tags: {
+      data: []
+    },
     pagination: {},
   },
   action
@@ -14,7 +16,9 @@ const TagListReducer = (
         ...state,
         loading: true,
         error: null,
-        tags: [],
+        tags: {
+      data: []
+    },
         pagination: {},
       };
     case TAG.TAG_GET_SUCCESS:
@@ -29,7 +33,9 @@ const TagListReducer = (
         ...state,
         loading: false,
         error: action.response,
-        tags: [],
+        tags: {
+          data: []
+        },
         pagination: {},
       };
     default:
