@@ -14,15 +14,15 @@ import ProductDetailAction from "Redux/V1/Products/First/ProductFirstAction";
 import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
 import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
-import { InputTags } from 'react-bootstrap-tagsinput'
+// import { InputTags } from 'react-bootstrap-tagsinput'
 import 'react-bootstrap-tagsinput/dist/index.css'
 import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "Assets/css/blogs.css"
-import ReactTags from 'react-tag-autocomplete'
+// import ReactTags from 'react-tag-autocomplete'   
 import {
     faPlus,
-    faTimes
+    // faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 class productFormComponent extends Component {
