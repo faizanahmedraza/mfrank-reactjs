@@ -3,17 +3,17 @@ import CATEGORY from "Redux/V1/Categories/ActionType";
 import CategoryPostAction from "Redux/V1/Categories/Post/CategoryPostAction";
 import CategoryListAction from "Redux/V1/Categories/Get/CategoryGetAction";
 import CategoryService from "Services/V1/CategoryService";
+import ToastHelper from "Helpers/ToastHelper";
 
 function* categoryPost(data) {
   try {
     const response = yield CategoryService.categoryPost(data.request);
     if (response.success) {
+      ToastHelper.success(response.message);
       yield put(CategoryPostAction.categoryPostSuccess(response));
-      setTimeout(() => {
-        window.location.href = "/add";
-      }, 500)
       yield put(CategoryListAction.categoryGet());
     } else {
+      ToastHelper.error(response.error.message);
       yield put(CategoryPostAction.categoryPostFailed(response.error));
     }
   } catch (error) {

@@ -72,24 +72,18 @@ class productFormComponent extends Component {
     }
     handleColorChange = (e, options, index) => {
         // const index = e.target // .dataset.index
-        // console.log(options);
-        // console.log(index);
         // const index = index
         let variations = [...this.state.variations];
         variations[index].color = options;
-        console.log(variations)
         this.setState({
             variations
         });
     }
     handleSizeChange = (e, options, index) => {
         // const index = e.target // .dataset.index
-        // console.log(options);
-        // console.log(index);
         // const index = index
         let variations = [...this.state.variations];
         variations[index].size = options;
-        console.log(variations)
         this.setState({
             variations
         });
@@ -98,7 +92,6 @@ class productFormComponent extends Component {
         const index = e.target.dataset.index
         let variations = [...this.state.variations];
         variations[index][e.target.name] = e.target.value
-        console.log(variations)
         this.setState({
             variations
         });
@@ -107,7 +100,6 @@ class productFormComponent extends Component {
         const index = e.target.dataset.index
         let custom_field = [...this.state.custom_field];
         custom_field[index][e.target.name] = e.target.value
-        console.log(custom_field)
         this.setState({
             custom_field
         });
@@ -155,7 +147,7 @@ class productFormComponent extends Component {
             this.setState({
                 form: {
                     ...form,
-                    images: [...this.state.form.images, ...newImages]
+                    images: [...newImages]
                 }
             })
         }
@@ -187,7 +179,6 @@ class productFormComponent extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
         // let { form, variations } = this.state;
-        // console.log("Data ==>", this.state);
         if (this.props.method === 'PUT') {
             let { form } = this.state;
             form['variations'] = this.state.variations;
@@ -203,8 +194,6 @@ class productFormComponent extends Component {
             let { form } = this.state;
             form['variations'] = this.state.variations;
             form['custom_field'] = this.state.custom_field;
-            console.log("All data", form)
-            console.log(form)
             ProductValidation.validate(this.state.form, { abortEarly: false })
                 .then(() => {
                     this.props.dispatch(
@@ -244,8 +233,6 @@ class productFormComponent extends Component {
                         })
 
                     });
-
-                    console.log(form.images, 'dadsa');
                     // form.link = this.props.product.link;
                     // form.image = this.props.product.image;
                     form.status = {
@@ -321,18 +308,14 @@ class productFormComponent extends Component {
 
     removeProductImage(index) {
         let { images } = this.state.form;
-        console.log(images.length , 'ooper')
-        console.log(typeof index , 'index')
         images.splice(index, 1);
-        console.log(images.length , 'neechay')
         this.setState({
-            images
+            images: images
         })
     }
 
     removeImage(i, index) {
         let formValues = this.state.variations[index].images;
-        console.log("formValues", formValues)
         formValues.splice(i, 1);
         this.setState({ formValues });
     }
@@ -371,12 +354,10 @@ class productFormComponent extends Component {
             parent_category: this.state.form.parent_category
         }
         this.props.dispatch(CategoryPostAction.categoryPost(data));
-        data.name = "";
-        data.parent_category = "";
+        form.name = ''
+        form.parent_category = ''
         this.setState({
-            ...form,
-            name: "",
-            parent_category: ""
+            form
         })
     }
 
@@ -399,12 +380,10 @@ class productFormComponent extends Component {
         const size = this.props.sizes.map(function (size) {
             return { value: size.id, label: size.name };
         });
-        console.log("category_loading", this.props.category_loading)
         this.setDefaultData();
         return (
             <React.Fragment>
                 <form method={this.props.method} onSubmit={this.handleFormSubmit}>
-                    {console.log(this.state, "state value")}
                     <Row>
                         <Col sm={6}>
                             <InputUpdateField
@@ -534,12 +513,11 @@ class productFormComponent extends Component {
                         <Col sm={12}>
                             <div className="img-list-container">
                                 {
-                                    (this.props.product.product_images.length) ?
-                                        this.props.product.product_images.map((element, index) => {
-                                            console.log("IMAGES",element)
+                                    (this.state.form.images.length) ?
+                                        this.state.form.images.map((element, index) => {
                                             return (
                                                 <div className="img-list-wrap">
-                                                    <img src={element.image} alt={element.product_id} />
+                                                    <img src={element} alt={element.product_id} />
                                                     <span className="cross cross-icon">
                                                         <span onClick={() => this.removeProductImage(index)}>X</span>
                                                     </span>
@@ -805,7 +783,6 @@ class productFormComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state,'fdfdsfsd');
     return {
         tags: state.tags.list.tags.data,
         categories: state.categories.list.categories,
