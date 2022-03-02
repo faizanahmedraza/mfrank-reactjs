@@ -48,7 +48,7 @@ const productBodyData = (data) => {
       quantity: item.quantity
     }
   });
-  _data.custom_field = data.custom_field.map(data => {
+  _data.metas = data.custom_field.map(data => {
     return {
       key: data.custom_field_key,
       value: data.custom_field_value,

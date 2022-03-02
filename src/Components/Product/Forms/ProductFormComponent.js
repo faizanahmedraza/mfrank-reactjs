@@ -8,6 +8,7 @@ import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
 import ColorListAction from 'Redux/V1/Variation/Color/Get/ColorGetAction';
 import SizeListAction from 'Redux/V1/Variation/Size/Get/SizeGetAction';
 import CategoryListAction from 'Redux/V1/Categories/Get/CategoryGetAction';
+import CategoryPostAction from 'Redux/V1/Categories/Post/CategoryPostAction';
 // import PermissionListAction from "Redux/V1/Permissions/Get/PermissionGetAction";
 // import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
 import ProductDetailAction from "Redux/V1/Products/First/ProductFirstAction";
@@ -32,6 +33,8 @@ class productFormComponent extends Component {
         this.state = {
             form: {
                 title: null,
+                name: null,
+                parent_category: null,
                 categories: [],
                 tags: [],
                 // new_tags: [],
@@ -46,7 +49,6 @@ class productFormComponent extends Component {
             custom_field: [
             ],
             show: false,
-            add_category: null,
             // new_tags_suggestion: [
             //     { id: 1, name: "Apples" },
             //     { id: 2, name: "Pears" }
@@ -222,7 +224,7 @@ class productFormComponent extends Component {
                 form,
                 default_data,
                 variations,
-                // custom_field 
+                custom_field 
             } = this.state;
 
             if (default_data === false) {
@@ -234,6 +236,13 @@ class productFormComponent extends Component {
 
                     form.images = this.props.product.product_images.map((cat) => {
                         return cat.image;
+                    });
+                    custom_field = this.props.product.product_metas.map((data) => {
+                        return ( {
+                                custom_field_key: data.key,
+                                custom_field_value: data.value
+                        })
+
                     });
 
                     console.log(form.images, 'dadsa');
@@ -286,7 +295,8 @@ class productFormComponent extends Component {
                     this.setState({
                         form,
                         default_data: true,
-                        variations
+                        variations,
+                        custom_field
                     });
                 }, 5000);
             }
@@ -310,12 +320,14 @@ class productFormComponent extends Component {
     }
 
     removeProductImage(index) {
-        let { images } = this.state.form
+        let { images } = this.state.form;
+        console.log(images.length , 'ooper')
+        console.log(typeof index , 'index')
         images.splice(index, 1);
+        console.log(images.length , 'neechay')
         this.setState({
-            images: images
+            images
         })
-        console.log("FORM", this.state.form)
     }
 
     removeImage(i, index) {
@@ -351,6 +363,22 @@ class productFormComponent extends Component {
     //     const new_tags_suggestion = [].concat(this.state.new_tags_suggestion, tag)
     //     this.setState({ new_tags_suggestion })
     // }
+    submitCategory = (e) => {
+        e.preventDefault()
+        const { form } = this.state;
+        const data = {
+            name: this.state.form.name,
+            parent_category: this.state.form.parent_category
+        }
+        this.props.dispatch(CategoryPostAction.categoryPost(data));
+        data.name = "";
+        data.parent_category = "";
+        this.setState({
+            ...form,
+            name: "",
+            parent_category: ""
+        })
+    }
 
     render() {
         const tagsOptions = this.props.tags.map(function (tag) {
@@ -359,6 +387,7 @@ class productFormComponent extends Component {
         const catOptions = this.props.categories.map(function (category) {
             return { value: category.id, label: category.name };
         });
+
         const status = [
             { value: "active", label: "Active" },
             { value: "In Active", label: "In Active" },
@@ -370,7 +399,7 @@ class productFormComponent extends Component {
         const size = this.props.sizes.map(function (size) {
             return { value: size.id, label: size.name };
         });
-        console.log("Before Map", this.props.product.product_images)
+        console.log("category_loading", this.props.category_loading)
         this.setDefaultData();
         return (
             <React.Fragment>
@@ -507,6 +536,7 @@ class productFormComponent extends Component {
                                 {
                                     (this.props.product.product_images.length) ?
                                         this.props.product.product_images.map((element, index) => {
+                                            console.log("IMAGES",element)
                                             return (
                                                 <div className="img-list-wrap">
                                                     <img src={element.image} alt={element.product_id} />
@@ -723,39 +753,48 @@ class productFormComponent extends Component {
                             className="form-container domain-form-container"
                             id="registration-form">
                             <div className="domain-modal-scrollable">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div className="form-group" >
-                                            <div className="form-group">
-                                                <label htmlFor="Category">Category</label>
-                                                <input
-                                                    value={this.state.add_category}
-                                                    type="text"
-                                                    name="add_category"
-                                                    id="add_category"
-                                                    className="form-control"
-                                                    onChange={this.handleChange}
-                                                    placeholder="Enter Category" />
+                                <form>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div className="form-group" >
+                                                <div className="form-group">
+                                                    <label htmlFor="Category">Category</label>
+                                                    <input
+                                                        value={this.state.form.name}
+                                                        type="text"
+                                                        name="name"
+                                                        id="name"
+                                                        className="form-control"
+                                                        onChange={this.handleChange}
+                                                        placeholder="Enter Category" />
+                                                </div>
+                                            </div>
+                                            <div className="form-group" >
+                                                <InputSelectField
+                                                    name="parent_category"
+                                                    placeholder="Select Product Category"
+                                                    option={catOptions}
+                                                    isMulti={false}
+                                                    onChange={(options, e) =>
+                                                        this.handleMultiSelect(e, options)
+                                                    }
+                                                    value={this.state.form.parent_category}
+                                                    schema={ProductValidation}
+                                                    error={this.state.error}
+                                                />
+                                            </div>
+                                            <div className="form-group" >
+                                                <button 
+                                                    type="button"
+                                                    className={`btn btn-outline-primary btn-block ${this.props.create_category_loading ? "loading"
+                                                    : ""
+                                                    }`}
+                                                    onClick={(e) => this.submitCategory(e)}
+                                                >Create</button>
                                             </div>
                                         </div>
-                                        <div className="form-group" >
-                                            <InputSelectField
-                                                name="categories"
-                                                placeholder="Select Product Category"
-                                                option={catOptions}
-                                                onChange={(options, e) =>
-                                                    this.handleMultiSelect(e, options)
-                                                }
-                                                value={this.state.form.categories}
-                                                schema={ProductValidation}
-                                                error={this.state.error}
-                                            />
-                                        </div>
-                                        <div className="form-group" >
-                                            <button className="btn btn-outline-primary btn-block">Create</button>
-                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </Modal.Body>
@@ -773,6 +812,7 @@ const mapStateToProps = (state) => {
         product: state.products.detail.product,
         colors: state.variations.colorList.colors,
         sizes: state.variations.sizeList.sizes,
+        create_category_loading: state.categories.create.loading,
         create_loading: state.products.create.loading,
         update_loading: state.products.update.loading,
     };

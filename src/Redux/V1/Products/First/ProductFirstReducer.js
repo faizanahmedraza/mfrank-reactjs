@@ -10,7 +10,8 @@ const ProductDetailReducer = (
             price: null,
             description: null,
             product_images: [],
-            product_variation: []
+            product_variation: [],
+            product_metas: []
         },
         variations: [
             {

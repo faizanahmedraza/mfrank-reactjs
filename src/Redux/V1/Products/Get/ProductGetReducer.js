@@ -3,7 +3,9 @@ import PRODUCT from "Redux/V1/Products/ActionType";
 const ProductListReducer = (
   state = {
     loading: false,
-    products: [],
+    products: {
+      data: []
+    },
     pagination: {},
   },
   action
@@ -14,7 +16,9 @@ const ProductListReducer = (
         ...state,
         loading: true,
         error: null,
-        products: [],
+        products: {
+          data: []
+        },
         pagination: {},
       };
     case PRODUCT.PRODUCT_GET_SUCCESS:
