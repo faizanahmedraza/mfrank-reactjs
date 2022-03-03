@@ -9,21 +9,15 @@ import ColorListAction from 'Redux/V1/Variation/Color/Get/ColorGetAction';
 import SizeListAction from 'Redux/V1/Variation/Size/Get/SizeGetAction';
 import CategoryListAction from 'Redux/V1/Categories/Get/CategoryGetAction';
 import CategoryPostAction from 'Redux/V1/Categories/Post/CategoryPostAction';
-// import PermissionListAction from "Redux/V1/Permissions/Get/PermissionGetAction";
-// import TagListAction from 'Redux/V1/Tags/Get/TagGetAction';
 import ProductDetailAction from "Redux/V1/Products/First/ProductFirstAction";
 import productUpdateAction from "Redux/V1/Products/Put/ProductPutAction";
 import ProductValidation from "Validations/ProductValidation";
 import ErrorBusiness from "Businesses/ErrorBusiness";
-// import { InputTags } from 'react-bootstrap-tagsinput'
-import 'react-bootstrap-tagsinput/dist/index.css'
 import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "Assets/css/blogs.css"
-// import ReactTags from 'react-tag-autocomplete'   
+import "Assets/css/blogs.css" 
 import {
-    faPlus,
-    // faTimes
+    faPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 class productFormComponent extends Component {
@@ -49,19 +43,9 @@ class productFormComponent extends Component {
             custom_field: [
             ],
             show: false,
-            // new_tags_suggestion: [
-            //     { id: 1, name: "Apples" },
-            //     { id: 2, name: "Pears" }
-            // ],
-            // suggestions: [
-            //     { id: 3, name: "Bananas" },
-            //     { id: 4, name: "Mangos" },
-            //     { id: 5, name: "Lemons" },
-            //     { id: 6, name: "Apricots" }
-            // ]
         }
-        this.reactTags = React.createRef()
     }
+
     componentDidMount() {
         this.props.dispatch(TagListAction.tagGet());
         this.props.dispatch(ColorListAction.colorGet());
@@ -70,6 +54,7 @@ class productFormComponent extends Component {
         if (this.props.method === "PUT")
             this.props.dispatch(ProductDetailAction.productFirst(this.props.params));
     }
+
     handleColorChange = (e, options, index) => {
         // const index = e.target // .dataset.index
         // const index = index
@@ -79,15 +64,15 @@ class productFormComponent extends Component {
             variations
         });
     }
+
     handleSizeChange = (e, options, index) => {
-        // const index = e.target // .dataset.index
-        // const index = index
         let variations = [...this.state.variations];
         variations[index].size = options;
         this.setState({
             variations
         });
     }
+
     handleVariationChange = (e) => {
         const index = e.target.dataset.index
         let variations = [...this.state.variations];
@@ -96,6 +81,7 @@ class productFormComponent extends Component {
             variations
         });
     }
+
     handleCustomFieldChange = (e) => {
         const index = e.target.dataset.index
         let custom_field = [...this.state.custom_field];
@@ -104,6 +90,7 @@ class productFormComponent extends Component {
             custom_field
         });
     }
+    
     handleChange = (e) => {
         // const index = e.target.dataset.index
         let variations = [...this.state.variations];
@@ -233,17 +220,11 @@ class productFormComponent extends Component {
                         })
 
                     });
-                    // form.link = this.props.product.link;
-                    // form.image = this.props.product.image;
                     form.status = {
                         value: this.props.product.status ? "Active" : "In Active",
                         label: this.props.product.status ? "Active" : "In Active",
                     };
                     form.description = this.props.product.description
-                    // form.status = {
-                    //     value: this.props.product.status,
-                    //     label: this.props.product.status,
-                    // }
                     form.categories = this.props.product.product_categories.map((cat) => {
                         return { value: cat.id, label: cat.name };
                     });
@@ -251,15 +232,6 @@ class productFormComponent extends Component {
                     form.tags = this.props.product.product_tags.map((tag) => {
                         return { value: tag.id, label: tag.name };
                     });
-
-                    // customField = this.props.product.custom_field.map((data) => {
-                    //     return (
-                    //         {
-                    //             custom_field_key: data.key,
-                    //             custom_field_value: data.value
-                    //         }
-                    //     )
-                    // })
 
                     variations = this.props.product.product_variations.map((data) => {
                         return (
@@ -295,11 +267,13 @@ class productFormComponent extends Component {
         formValues[i][e.target.name] = e.target.value;
         this.setState({ formValues });
     }
+
     addFormFields() {
         this.setState(({
             variations: [...this.state.variations, { color: "", size: "", images: [] }]
         }))
     }
+
     removeFormFields(i) {
         let formValues = this.state.variations;
         formValues.splice(i, 1);
@@ -325,27 +299,19 @@ class productFormComponent extends Component {
         formValues[i][e.target.name] = e.target.value;
         this.setState({ formValues });
     }
+
     addFormCustomFields() {
         this.setState(({
             custom_field: [...this.state.custom_field, { custom_field_key: "", custom_field_value: "" }]
         }))
     }
+
     removeFormCustomFields(i) {
         let formValues = this.state.custom_field;
         formValues.splice(i, 1);
         this.setState({ formValues });
     }
 
-    // onDelete(i) {
-    //     const new_tags_suggestion = this.state.new_tags_suggestion.slice(0)
-    //     new_tags_suggestion.splice(i, 1)
-    //     this.setState({ new_tags_suggestion })
-    // }
-
-    // onAddition(tag) {
-    //     const new_tags_suggestion = [].concat(this.state.new_tags_suggestion, tag)
-    //     this.setState({ new_tags_suggestion })
-    // }
     submitCategory = (e) => {
         e.preventDefault()
         const { form } = this.state;
@@ -365,6 +331,7 @@ class productFormComponent extends Component {
         const tagsOptions = this.props.tags.map(function (tag) {
             return { value: tag.id, label: tag.name };
         });
+
         const catOptions = this.props.categories.map(function (category) {
             return { value: category.id, label: category.name };
         });
@@ -377,10 +344,13 @@ class productFormComponent extends Component {
         const color = this.props.colors.map(function (color) {
             return { value: color.id, label: color.name };
         });
+
         const size = this.props.sizes.map(function (size) {
             return { value: size.id, label: size.name };
         });
+
         this.setDefaultData();
+
         return (
             <React.Fragment>
                 <form method={this.props.method} onSubmit={this.handleFormSubmit}>
@@ -421,50 +391,6 @@ class productFormComponent extends Component {
                                 error={this.state.error}
                             />
                         </Col>
-                        {/* <Col sm={6}>
-                            <div className='input-group tag-input-wrapper'>
-                                <label htmlFor="addProductTags">Product Tags</label>
-                                <InputTags
-                                    values={this.state.form.new_tags}
-                                    onTags={() => this.setState(
-                                        {
-                                            form: {
-                                                new_tags: this.state.form.new_tags
-                                            }
-                                        }
-                                    )}
-                                />
-                                <button
-                                    className='btn btn-outline-primary'
-                                    type='button'
-                                    data-testid='button-clearAll'
-                                    onClick={() => {
-                                        this.setState(
-                                            {
-                                                form: {
-                                                    new_tags: []
-                                                }
-                                            }
-                                        )
-                                    }}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faTimes}
-                                    />
-                                </button>
-                            </div>
-                        </Col>
-                        <Col sm={6}>
-                            <div className='input-group tag-input-wrapper'>
-                                <label htmlFor="addProductTags">Product Tags Simple</label>
-                                <ReactTags
-                                    ref={this.reactTags}
-                                    tags={this.state.new_tags_suggestion}
-                                    suggestions={this.state.suggestions}
-                                    onDelete={this.onDelete.bind(this)}
-                                    onAddition={this.onAddition.bind(this)} />
-                            </div>
-                        </Col> */}
                         <Col sm={6}>
                             <label>Select Product Tag</label>
                             <InputSelectField

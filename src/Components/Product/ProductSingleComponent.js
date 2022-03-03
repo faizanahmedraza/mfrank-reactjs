@@ -18,7 +18,6 @@ class UpdateProductComponent extends Component {
 
     render() {
         const productsTag = this.props.product.tags;
-        // const productPermission = this.props.product.permissions;
         let tagData;
         if (productsTag) {
             tagData = productsTag.map((tag) => {
@@ -29,15 +28,7 @@ class UpdateProductComponent extends Component {
                 );
             });
         }
-        // if (productPermission) {
-        //     permissionData = productPermission.map((permissions) => {
-        //         return (
-        //             <React.Fragment>
-        //                 <Badge variant="primary">{permissions.name}</Badge>{" "}
-        //             </React.Fragment>
-        //         );
-        //     });
-        // }
+        
         return (
             <React.Fragment>
                 <TemplateMain>

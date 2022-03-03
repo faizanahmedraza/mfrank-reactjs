@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-// import TemplateMain from "Templates/TemplateMain";
 import ProductFormComponent from "Components/Product/Forms/ProductFormComponent";
 class CreateProductComponent extends Component {
     render() {

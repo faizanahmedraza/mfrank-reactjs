@@ -1,16 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { Table } from "react-bootstrap";
-// import TemplateMain from "Templates/TemplateMain";
-// import ProductDeleteAction from "Redux/V1/Products/Delete/ProductDeleteAction";
-// import ProductFilterForm from "Components/Forms/ProductFilterForm";
 import Confirm from "Helpers/ConfirmationHelper";
-// import NoDataHelper from "Helpers/NoDataHelper";
-// import ProductBusiness from "Businesses/Products/ProductBusiness";
 import ProductGetAction from 'Redux/V1/Products/Get/ProductGetAction';
 import ProductDeleteAction from 'Redux/V1/Products/Delete/ProductDeleteAction';
-// import PaginationDropDown from "Components/Includes/DropDownComponent";
-// import PaginationNumber from "Components/Includes/PaginationComponent";
 import Capitilize from 'Helpers/CapitilizeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductStatusAction from "Redux/V1/Products/Status/ProductStatusAction"
@@ -162,63 +154,12 @@ class ProductListComponent extends Component {
                                 </a>
                             </h4>
                             <div className="blog-list-page">
-                                {/* <Table
-                                    striped
-                                    bordered
-                                    hover
-                                    className="table-responsive-sm"
-                                >
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Status</th>
-                                            <th className="text-center action">
-                                                Action
-                                            </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {/* {blogs.length === null
-                                            ? NoDataHelper.available()
-                                            : NoDataHelper.available(
-                                                  blogs,
-                                                  loading
-                                              )} */}
-                                        {/* {ProductBusiness.generate(
-                                            products,
-                                            this.onSwitch,
-                                            this.productDelete
-                                        )} */}
-                                    {/* </tbody> */}
-                                {/* </Table>  */}
                                 <MDBDataTable
                                     striped
                                     bordered
                                     hover
                                     data={data}
                                 />
-                                {/* <Row>
-                                    <Col md={4}>
-                                        <PaginationDropDown
-                                            title={"Blogs"}
-                                            // perPage={pagination.per_page}
-                                            // total={pagination.total}
-                                        />
-                                    </Col>
-                                    <Col md={4}>
-                                        <PaginationNumber
-                                            // perPage={pagination.per_page}
-                                            // totalPages={pagination.total_pages}
-                                            // currentPage={
-                                            //     pagination.current_page
-                                            // }
-                                        />
-                                    </Col>
-                                    <Col md={4}></Col>
-                                </Row> */}
                             </div>
                         </div>
                     </div>

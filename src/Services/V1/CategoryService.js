@@ -11,7 +11,6 @@ const categoryGet = async () => {
 
 const categoryPostBody = (data) => {
   let _data = {}
-  console.log(data)
   _data.name = data.name;
   _data.parent_category = data.parent_category.label
   return JSON.stringify(_data);
