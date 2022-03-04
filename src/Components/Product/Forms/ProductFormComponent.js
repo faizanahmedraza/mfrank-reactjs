@@ -319,6 +319,7 @@ class productFormComponent extends Component {
             name: this.state.form.name,
             parent_category: this.state.form.parent_category
         }
+        console.log("data",data)
         this.props.dispatch(CategoryPostAction.categoryPost(data));
         form.name = ''
         form.parent_category = ''

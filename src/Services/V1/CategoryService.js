@@ -12,7 +12,10 @@ const categoryGet = async () => {
 const categoryPostBody = (data) => {
   let _data = {}
   _data.name = data.name;
-  _data.parent_category = data.parent_category.label
+  if( _data.parent_category ){
+    _data.parent_category = data.parent_category.label
+  }
+  console.log("Saga Data", _data);
   return JSON.stringify(_data);
 }
 
