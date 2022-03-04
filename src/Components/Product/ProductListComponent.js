@@ -21,6 +21,7 @@ class ProductListComponent extends Component {
     };
 
     onSwitch = (id) => {
+        console.log("ID", id)
         Confirm(this.props.dispatch, ProductStatusAction.productStatus(id));
     };
 
@@ -85,7 +86,7 @@ class ProductListComponent extends Component {
 
                             onChange={() =>
                                 this.onSwitch(
-                                    status
+                                    id
                                 )
                             }
                         />
