@@ -130,22 +130,24 @@ class UpdateProductComponent extends Component {
                                     >
                                         Images
                                     </label>
-                                    {product_images
-                                        ? product_images.map(
-                                              (element, index) => {
-                                                  return (
-                                                      <div className="img-list-wrap">
-                                                          <img
-                                                              src={
-                                                                  element.image
-                                                              }
-                                                              alt={index}
-                                                          />
-                                                      </div>
-                                                  );
-                                              }
-                                          )
-                                        : ""}
+                                    <div className="img-list-container">
+                                        {product_images
+                                            ? product_images.map(
+                                                  (element, index) => {
+                                                      return (
+                                                          <div className="img-list-wrap">
+                                                              <img
+                                                                  src={
+                                                                      element.image
+                                                                  }
+                                                                  alt={index}
+                                                              />
+                                                          </div>
+                                                      );
+                                                  }
+                                              )
+                                            : ""}
+                                    </div>
                                 </div>
                             </div>
                             <div className="row mb-4">
@@ -203,27 +205,29 @@ class UpdateProductComponent extends Component {
                                                       >
                                                           Images
                                                       </label>
-                                                      {images
-                                                          ? images.map(
-                                                                (
-                                                                    element,
-                                                                    index
-                                                                ) => {
-                                                                    return (
-                                                                        <div className="img-list-wrap">
-                                                                            <img
-                                                                                src={
-                                                                                    element
-                                                                                }
-                                                                                alt={
-                                                                                    index
-                                                                                }
-                                                                            />
-                                                                        </div>
-                                                                    );
-                                                                }
-                                                            )
-                                                          : ""}
+                                                      <div className="img-list-container">
+                                                          {images
+                                                              ? images.map(
+                                                                    (
+                                                                        element,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <div className="img-list-wrap">
+                                                                                <img
+                                                                                    src={
+                                                                                        element
+                                                                                    }
+                                                                                    alt={
+                                                                                        index
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                        );
+                                                                    }
+                                                                )
+                                                              : ""}
+                                                      </div>
                                                   </div>
                                               </div>
                                           </>
