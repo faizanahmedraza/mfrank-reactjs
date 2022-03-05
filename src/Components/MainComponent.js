@@ -3,7 +3,7 @@ import { Switch, Redirect, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import CreateProductComponent from "Components/Product/ProductCreateComponent";
 import ProductListComponent from "Components/Product/ProductListComponent";
-// import ProductSingleComponent from "Components/Products/ProductSingleComponent";
+import ProductSingleComponent from "Components/Product/ProductSingleComponent";
 import ProductUpdateComponent from "Components/Product/ProductUpdateComponent";
 // import MainComponent from "Components/Public/MainComponent";
 import Component404 from "Components/404/Error404Component";
@@ -19,11 +19,11 @@ class Main extends Component {
                         component={CreateProductComponent}
                     />
                     {/* <Route exact path="/posts" component={ProductListComponent} /> */}
-                    {/* <Route
+                    <Route
                         exact
                         path="/:id"
                         component={ProductSingleComponent}
-                    /> */}
+                    />
                     <Route
                         exact
                         path="/edit/:id"

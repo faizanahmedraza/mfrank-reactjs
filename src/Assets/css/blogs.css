@@ -97,7 +97,25 @@ label.icon-wrap-label {
 .react-tags.is-focused {
     border-color: #b1b1b1;
 }
-
+ul.hor-list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ul.hor-list li {
+    margin-right: 10px;
+}
+p.title strong {
+    margin-left: 20px;
+    letter-spacing: 1px;
+}
+.font-bold {
+    font-weight: bold;
+}
+p.title {
+    font-weight: 500;
+}
 .react-tags__selected {
     display: inline;
 }
