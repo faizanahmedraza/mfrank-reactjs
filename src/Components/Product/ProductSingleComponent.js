@@ -128,7 +128,7 @@ class UpdateProductComponent extends Component {
                                         htmlFor="image"
                                         className="font-bold"
                                     >
-                                        Images
+                                        Product Images
                                     </label>
                                     <div className="img-list-container">
                                         {product_images
@@ -203,6 +203,7 @@ class UpdateProductComponent extends Component {
                                                           htmlFor="image"
                                                           className="font-bold"
                                                       >
+                                                          Product Variation
                                                           Images
                                                       </label>
                                                       <div className="img-list-container">
