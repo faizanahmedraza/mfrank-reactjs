@@ -240,34 +240,43 @@ class UpdateProductComponent extends Component {
                                     <h5>Product Metas</h5>
                                 </div>
                             </div>
-                            {product_metas
-                                ? product_metas.map((meta, index) => {
-                                      const { key, value } = meta;
-                                      return (
-                                          <>
-                                              <div className="row">
-                                                  <div className="col-12">
-                                                      <p className="title">
-                                                          Key:
-                                                          <strong>
-                                                              {key ? key : ""}
-                                                          </strong>
-                                                      </p>
-                                                      <p className="title">
-                                                          Value:
-                                                          <strong>
-                                                              {value
-                                                                  ? value
-                                                                  : ""}
-                                                          </strong>
-                                                      </p>
-                                                  </div>
-                                              </div>
-                                          </>
-                                      );
-                                  })
-                                : ""}
-
+                            <div className="metas">
+                                <div className="header-metas">
+                                    <p>
+                                        <strong>Keys and Values</strong>
+                                    </p>
+                                </div>
+                                <ol>
+                                    {product_metas
+                                        ? product_metas.map((meta, index) => {
+                                              const { key, value } = meta;
+                                              return (
+                                                  <>
+                                                      <li>
+                                                          <div className="row">
+                                                              <div className="col-12">
+                                                                  <p className="title">
+                                                                      <strong>
+                                                                          {key
+                                                                              ? key
+                                                                              : ""}
+                                                                      </strong>
+                                                                      :
+                                                                      <strong>
+                                                                          {value
+                                                                              ? value
+                                                                              : ""}
+                                                                      </strong>
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+                                                      </li>
+                                                  </>
+                                              );
+                                          })
+                                        : ""}
+                                </ol>
+                            </div>
                             <div className="row">
                                 <div className="col-12">
                                     <a

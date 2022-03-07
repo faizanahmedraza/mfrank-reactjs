@@ -92,7 +92,6 @@ class productFormComponent extends Component {
     handleChange = (e) => {
         // const index = e.target.dataset.index
         let variations = [...this.state.variations];
-
         const errorUpdate = ErrorBusiness.errorRemove(
             this.state.error,
             e.target.name
