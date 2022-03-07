@@ -13,8 +13,8 @@ function* categoryPost(data) {
       yield put(CategoryPostAction.categoryPostSuccess(response));
       yield put(CategoryListAction.categoryGet());
     } else {
-      ToastHelper.error(response.error.message);
-      yield put(CategoryPostAction.categoryPostFailed(response.error));
+      ToastHelper.error(response.errors[0]);
+      yield put(CategoryPostAction.categoryPostFailed(response.errors));
     }
   } catch (error) {
     console.log(error);

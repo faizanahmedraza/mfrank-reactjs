@@ -442,6 +442,7 @@ class productFormComponent extends Component {
                                 className="form-control"
                                 onChange={this.handleChange}
                                 maxLength="8"
+                                step="0.00001"
                                 onInput={this.maxLengthCheck}
                                 placeholder="Enter Price"
                             />

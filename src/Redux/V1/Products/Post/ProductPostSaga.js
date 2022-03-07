@@ -14,8 +14,8 @@ function* productPost(data) {
                 window.location.href = "/";
             }, 1000);
         } else {
-            ToastHelper.error(response.error.message);
-            yield put(ProductCreateAction.productPostFailed(response.error));
+            ToastHelper.error(response.errors[0]);
+            yield put(ProductCreateAction.productPostFailed(response.errors));
         }
     } catch (error) {
         ToastHelper.error(

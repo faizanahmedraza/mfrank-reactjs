@@ -14,8 +14,8 @@ function* productPut(data) {
             ToastHelper.success(response.message);
             yield put(ProductUpdateAction.productPutSuccess(response));
         } else {
-            ToastHelper.error(response.error.message);
-            yield put(ProductUpdateAction.productPutFailed(response.error));
+            ToastHelper.error(response.errors[0]);
+            yield put(ProductUpdateAction.productPutFailed(response.errors));
         }
     } catch (error) {
         ToastHelper.error(
