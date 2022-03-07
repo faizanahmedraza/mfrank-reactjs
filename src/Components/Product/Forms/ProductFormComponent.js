@@ -453,6 +453,11 @@ class productFormComponent extends Component {
                                 <input
                                     type="file"
                                     multiple
+                                    required={
+                                        this.props.method === "POST"
+                                            ? true
+                                            : false
+                                    }
                                     onChange={this.setSelectedProductFiles}
                                 />
                             </div>
