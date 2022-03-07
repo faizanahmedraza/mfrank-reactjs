@@ -453,6 +453,7 @@ class productFormComponent extends Component {
                                 <input
                                     type="file"
                                     multiple
+                                    className="form-control"
                                     required={
                                         this.props.method === "POST"
                                             ? true
@@ -633,6 +634,7 @@ class productFormComponent extends Component {
                                                         type="file"
                                                         name="pro_files"
                                                         id="pro_files"
+                                                        className="form-control"
                                                         multiple
                                                         data-index={index}
                                                         onChange={
