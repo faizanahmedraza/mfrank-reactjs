@@ -2,7 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 import ErrorBusiness from "Businesses/ErrorBusiness";
 
-class InputTextBox extends React.Component {
+class InputNumberUpdateField extends React.Component {
     state = {
         error: null,
     };
@@ -33,23 +33,20 @@ class InputTextBox extends React.Component {
                     }`}
                 >
                     <label>{this.props.placeholder}</label>
-                    <textarea
+                    <input
                         type={this.props.type}
                         id={this.props.name}
                         name={this.props.name}
                         placeholder={this.props.placeholder}
                         onInput={this.validateField}
-                        className="form-control"
+                        className="form-control comment-field"
                         required={this.props.required}
                         defaultValue={this.props.defaultValue}
                         pattern={this.props.pattern}
                         step={this.props.step}
                         autocomplete="off"
                         disabled={this.props.disabled === true ? true : false}
-                        maxLength={this.props.maxLength}
-                        value={this.props.value}
-                        rows={this.props.rows}
-                    ></textarea>
+                    />
 
                     {this.state.error || errorSubmit ? (
                         <p className="text-danger validation-message">
@@ -63,4 +60,4 @@ class InputTextBox extends React.Component {
     }
 }
 
-export default InputTextBox;
+export default InputNumberUpdateField;

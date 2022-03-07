@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import InputUpdateField from "Components/Forms/Fields/InputUpdateField";
+import InputNumberUpdateField from "Components/Forms/Fields/InputNumberUpdateField";
+import InputTextBox from "Components/Forms/Fields/InputTextBox";
 import InputSelectField from "Components/Forms/Fields/InputSelectField";
 import productCreateAction from "Redux/V1/Products/Post/ProductPostAction";
 import TagListAction from "Redux/V1/Tags/Get/TagGetAction";
@@ -167,12 +169,20 @@ class productFormComponent extends Component {
             let { form } = this.state;
             form["variations"] = this.state.variations;
             form["custom_field"] = this.state.custom_field;
-            this.props.dispatch(
-                productUpdateAction.productPut({
-                    form: this.state.form,
-                    id: this.props.params,
+            ProductValidation.validate(this.state.form, { abortEarly: false })
+                .then(() => {
+                    this.props.dispatch(
+                        productUpdateAction.productPut({
+                            form: this.state.form,
+                            id: this.props.params,
+                        })
+                    );
                 })
-            );
+                .catch((err) => {
+                    this.setState({
+                        error: ErrorBusiness.errorGet(err),
+                    });
+                });
         }
         if (this.props.method === "POST") {
             let { form } = this.state;
@@ -319,14 +329,7 @@ class productFormComponent extends Component {
         formValues.splice(i, 1);
         this.setState({ formValues });
     }
-    maxLengthCheck = (object) => {
-        if (object.target.value.length > object.target.maxLength) {
-            object.target.value = object.target.value.slice(
-                0,
-                object.target.maxLength
-            );
-        }
-    };
+
 
     submitCategory = (e) => {
         e.preventDefault();
@@ -424,27 +427,16 @@ class productFormComponent extends Component {
                             />
                         </Col>
                         <Col sm={6}>
-                            {/* <InputUpdateField
+                            <InputNumberUpdateField
+                                id="p_price"
                                 name="price"
                                 type="number"
                                 placeholder="Product Price"
                                 onChange={this.handleChange}
                                 defaultValue={this.state.form.price}
                                 schema={ProductValidation}
-                                error={this.state.error}
-                            /> */}
-                            <label>Product Price</label>
-                            <input
-                                value={this.state.form.price}
-                                type="number"
-                                name="price"
-                                id="price"
-                                className="form-control"
-                                onChange={this.handleChange}
-                                maxLength="8"
                                 step="0.00001"
-                                onInput={this.maxLengthCheck}
-                                placeholder="Enter Price"
+                                error={this.state.error}
                             />
                         </Col>
                         <Col sm={6}>
@@ -482,46 +474,46 @@ class productFormComponent extends Component {
                             <div className="img-list-container">
                                 {this.state.form.images.length
                                     ? this.state.form.images.map(
-                                          (element, index) => {
-                                              return (
-                                                  <div className="img-list-wrap">
-                                                      <img
-                                                          src={element}
-                                                          alt={
-                                                              element.product_id
-                                                          }
-                                                      />
-                                                      <span className="cross cross-icon">
-                                                          <span
-                                                              onClick={() =>
-                                                                  this.removeProductImage(
-                                                                      index
-                                                                  )
-                                                              }
-                                                          >
-                                                              X
-                                                          </span>
-                                                      </span>
-                                                  </div>
-                                              );
-                                          }
-                                      )
+                                        (element, index) => {
+                                            return (
+                                                <div className="img-list-wrap">
+                                                    <img
+                                                        src={element}
+                                                        alt={
+                                                            element.product_id
+                                                        }
+                                                    />
+                                                    <span className="cross cross-icon">
+                                                        <span
+                                                            onClick={() =>
+                                                                this.removeProductImage(
+                                                                    index
+                                                                )
+                                                            }
+                                                        >
+                                                            X
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            );
+                                        }
+                                    )
                                     : ""}
                             </div>
                         </Col>
                         <Col sm={12}>
                             <div className="form-group mb-4">
-                                <label htmlFor="Product Description">
-                                    Product Description
-                                </label>
-                                <textarea
+                                <InputTextBox
                                     onChange={this.handleChange}
                                     value={this.state.form.description}
                                     name="description"
                                     id="description"
                                     className="form-control"
+                                    placeholder="Product Description"
                                     rows="5"
-                                ></textarea>
+                                    schema={ProductValidation}
+                                    error={this.state.error}
+                                />
                             </div>
                         </Col>
                         <Col lg={12} className="profile-cancel-col">
@@ -664,33 +656,33 @@ class productFormComponent extends Component {
                                             <div className="img-list-container">
                                                 {element.images.length
                                                     ? element.images.map(
-                                                          (image, i) => {
-                                                              return (
-                                                                  <div className="img-list-wrap">
-                                                                      <img
-                                                                          src={
-                                                                              image
-                                                                          }
-                                                                          alt={
-                                                                              index
-                                                                          }
-                                                                      />
-                                                                      <span className="cross cross-icon">
-                                                                          <span
-                                                                              onClick={() =>
-                                                                                  this.removeImage(
-                                                                                      i,
-                                                                                      index
-                                                                                  )
-                                                                              }
-                                                                          >
-                                                                              X
-                                                                          </span>
-                                                                      </span>
-                                                                  </div>
-                                                              );
-                                                          }
-                                                      )
+                                                        (image, i) => {
+                                                            return (
+                                                                <div className="img-list-wrap">
+                                                                    <img
+                                                                        src={
+                                                                            image
+                                                                        }
+                                                                        alt={
+                                                                            index
+                                                                        }
+                                                                    />
+                                                                    <span className="cross cross-icon">
+                                                                        <span
+                                                                            onClick={() =>
+                                                                                this.removeImage(
+                                                                                    i,
+                                                                                    index
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            X
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            );
+                                                        }
+                                                    )
                                                     : ""}
                                             </div>
                                         </Col>
@@ -780,12 +772,11 @@ class productFormComponent extends Component {
                             <Button
                                 type="submit"
                                 variant="outline-primary"
-                                className={`btn-block ${
-                                    this.props.create_loading ||
-                                    this.props.update_loading
+                                className={`btn-block ${this.props.create_loading ||
+                                        this.props.update_loading
                                         ? "loading"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 {this.props.submitText}
                             </Button>
@@ -857,12 +848,11 @@ class productFormComponent extends Component {
                                             <div className="form-group">
                                                 <button
                                                     type="button"
-                                                    className={`btn btn-outline-primary btn-block ${
-                                                        this.props
+                                                    className={`btn btn-outline-primary btn-block ${this.props
                                                             .create_category_loading
                                                             ? "loading"
                                                             : ""
-                                                    }`}
+                                                        }`}
                                                     onClick={(e) =>
                                                         this.submitCategory(e)
                                                     }
