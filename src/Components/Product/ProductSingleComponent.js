@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { Row, Col, Badge } from "react-bootstrap";
 import { connect } from "react-redux";
 import ProductFirstAction from "Redux/V1/Products/First/ProductFirstAction";
 import TemplateMain from "Templates/TemplateMain";
-// import "Assets/css/products.css";
 
 class UpdateProductComponent extends Component {
     state = {

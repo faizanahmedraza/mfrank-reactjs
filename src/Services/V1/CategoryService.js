@@ -15,7 +15,7 @@ const categoryPostBody = (data) => {
   if( _data.parent_category ){
     _data.parent_category = data.parent_category.label
   }
-  console.log("Saga Data", _data);
+  
   return JSON.stringify(_data);
 }
 

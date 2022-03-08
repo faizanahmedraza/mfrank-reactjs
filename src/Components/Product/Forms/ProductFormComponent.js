@@ -274,12 +274,6 @@ class productFormComponent extends Component {
         }
     };
 
-    handleCloneChange(i, e) {
-        let formValues = this.state.variations;
-        formValues[i][e.target.name] = e.target.value;
-        this.setState({ formValues });
-    }
-
     addFormFields() {
         this.setState({
             variations: [
@@ -309,12 +303,6 @@ class productFormComponent extends Component {
         this.setState({ formValues });
     }
 
-    handleCustomFieldCloneChange(i, e) {
-        let formValues = this.state.custom_field;
-        formValues[i][e.target.name] = e.target.value;
-        this.setState({ formValues });
-    }
-
     addFormCustomFields() {
         this.setState({
             custom_field: [
@@ -338,7 +326,7 @@ class productFormComponent extends Component {
             name: this.state.form.name,
             parent_category: this.state.form.parent_category,
         };
-        console.log("data", data);
+       
         this.props.dispatch(CategoryPostAction.categoryPost(data));
         form.name = "";
         form.parent_category = "";

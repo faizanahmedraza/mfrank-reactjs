@@ -26,7 +26,7 @@ class ProductListComponent extends Component {
 
     render() {
         const products = this.props.products.products.data;
-        console.log("Before Tabel", products);
+       
         const data = {
             columns: [
                 {

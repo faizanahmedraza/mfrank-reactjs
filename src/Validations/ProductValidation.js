@@ -6,35 +6,9 @@ const UserValidation = Yup.object().shape({
     title: Yup.string().required("Field is required").nullable(),
     price: Yup.string().required("Field is required").nullable(),
     description: Yup.string().required("Field is required").nullable(),
-    // link: Yup.string()
-    //     .required("Field is required")
-    //     .nullable(),
     tags: Yup.string().required("Field is required").nullable(),
     categories: Yup.string().required("Field is required").nullable(),
     status: Yup.string().required("Field is required").nullable(),
-    // images: Yup.mixed().required("Field is required").nullable()
-    // .test(
-    //     "fileSize",
-    //     "The file is too large. Allowed maximum size in 500Kbs.",
-    //     (value) => {
-    //         if (value === null) {
-    //             return 100 <= FILE_SIZE;
-    //         } else {
-    //             return value && value.size <= FILE_SIZE;
-    //         }
-    //     }
-    // )
-    // .test(
-    //     "fileFormat",
-    //     "Upload valid image, Only jpg, png, jpeg, gif are allowed",
-    //     (value) => {
-    //         if (value === null) {
-    //             return SUPPORTED_FORMATS.includes("image/jpg");
-    //         } else {
-    //             return value && SUPPORTED_FORMATS.includes(value.type);
-    //         }
-    //     }
-    // ),
 });
 
 export default UserValidation;

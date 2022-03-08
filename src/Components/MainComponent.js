@@ -5,7 +5,6 @@ import CreateProductComponent from "Components/Product/ProductCreateComponent";
 import ProductListComponent from "Components/Product/ProductListComponent";
 import ProductSingleComponent from "Components/Product/ProductSingleComponent";
 import ProductUpdateComponent from "Components/Product/ProductUpdateComponent";
-// import MainComponent from "Components/Public/MainComponent";
 import Component404 from "Components/404/Error404Component";
 class Main extends Component {
     render() {
@@ -18,7 +17,7 @@ class Main extends Component {
                         path="/add"
                         component={CreateProductComponent}
                     />
-                    {/* <Route exact path="/posts" component={ProductListComponent} /> */}
+
                     <Route
                         exact
                         path="/:id"
